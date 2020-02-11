@@ -1,8 +1,11 @@
 package net.severo.taller.vistas;
 
+import net.severo.taller.pojo.Vehiculo;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class VistaVehiculo {
@@ -28,24 +31,6 @@ public class VistaVehiculo {
         }
     }
 
-    /*public String pedirMatricula() {
-        String respuesta;
-        Scanner sc = new Scanner(System.in);
-        do {
-            System.out.println("Introduzca una matricula para el vehiculo:");
-            respuesta = sc.nextLine();
-            if (respuesta.equals("0")) {
-                //Salimos
-                return null;
-            }
-            if (respuesta.length() >8) {
-                System.err.println("La matricula del vehiculo ha de tener 4 números y 3 letras");
-            }
-            //Se establece que el codigo del vuelo ha de tener más de 3 carácter y menos de 8
-        } while (respuesta.length() != 7);
-        return respuesta;
-    }*/   //------------------------------> x aki modificando el segundo if
-
     public static boolean esDecimal(String numero) {
         try {
             Double.parseDouble(numero);
@@ -54,6 +39,7 @@ public class VistaVehiculo {
             return false;
         }
     }
+
 
     public int menuPrincipal() {
         Scanner sc = new Scanner(System.in);
@@ -76,7 +62,7 @@ public class VistaVehiculo {
         return opcion;
     }
 
-    public Integer pedirIdVuelo() {
+    public Integer pedirIdVehiculo() {
         String respuesta;
         Scanner sc = new Scanner(System.in);
         Integer id;
@@ -99,6 +85,29 @@ public class VistaVehiculo {
             }
         } while (true);
     }
+
+    public String pedirMatriculaManual() {
+        String respuesta;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Introduzca una matricula para el vehiculo (1234ABC)");
+            respuesta = sc.nextLine();
+            if (respuesta.equals("0")) {
+                //Salimos
+                return null;
+            }
+            if (respuesta.length() < 3 || respuesta.length() > 7 || respuesta == null) {
+                System.err.println("La matricula del vehiculo ha de tener entre 3 y 7 carácteres");
+            }
+            //Se establece que la matricula del vehiculo ha de tener más de 3 carácter y menos de 7
+        } while (respuesta.length() < 3 || respuesta.length() > 7 || respuesta == null);
+        return respuesta;
+    }
+
+    public void pedirMatriculaAutomática() {
+        System.out.println("La matricula para el vehiculo es: " + Vehiculo.generaMatricula());
+    }
+
 
     public Date pedirFechaMatriculacion() {
         String respuesta;
@@ -137,4 +146,71 @@ public class VistaVehiculo {
         } while (true);
 
     }
+
+    public Integer menuAsignarMatricula() {
+        Scanner sc = new Scanner(System.in);
+        String respuesta;
+        int opcion;
+        do {
+            System.out.println(" 1.-Asignar matricula manualmente \n 2.-Asignar matricula automáticamente");
+            System.out.println("¿Como desea introducir la matricula del vehiculo?");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                continue;
+            }
+            opcion = Integer.parseInt(respuesta);
+            if (opcion == 0) {
+                return null;
+            }
+            if (opcion > 0 && opcion < 2) {
+                return opcion;
+            }
+        } while (true);
+
+    }
+
+    public Integer menuModificarVehiculo() {
+        Scanner sc = new Scanner(System.in);
+        String respuesta;
+        int opcion;
+        do {
+            System.out.println(" 1.-Matricula \n 2.-Es electrico \n 3.-Fecha matriculación");
+            System.out.println("¿Qué quiere modificar?");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                continue;
+            }
+            opcion = Integer.parseInt(respuesta);
+            if (opcion == 0) {
+                return null;
+            }
+            if (opcion > 0 && opcion < 3) {
+                return opcion;
+            }
+        } while (true);
+
+    }
+
+    public void mostrarUnVehiculo(Vehiculo v) {
+        System.out.println("--------------- VEHICULO SELECCIONADO -------------");
+        System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
+        String fechaStr;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        fechaStr = sdf.format(v.getFechaMatriculacion());
+        System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico(), fechaStr);
+
+    }
+
+    public void mostrarListaVehiculos(List<Vehiculo> vehiculos) {
+        System.out.println("--------------- VEHICULOS -------------");
+        System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
+        String fechaStr;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        for (Vehiculo v : vehiculos) {
+            fechaStr = sdf.format(v.getFechaMatriculacion());
+            System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico(), fechaStr);
+        }
+
+    }
+
 }
