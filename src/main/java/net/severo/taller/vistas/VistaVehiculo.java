@@ -104,8 +104,10 @@ public class VistaVehiculo {
         return respuesta;
     }
 
-    public void pedirMatriculaAutomática() {
+    public String pedirMatriculaAutomática() {
         System.out.println("La matricula para el vehiculo es: " + Vehiculo.generaMatricula());
+        String respuesta = Vehiculo.generaMatricula();
+        return respuesta;
     }
 
 
@@ -211,6 +213,10 @@ public class VistaVehiculo {
             System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico(), fechaStr);
         }
 
+    }
+
+    public void mostrarError(String mensaje) {
+        System.err.println(mensaje);
     }
 
 }

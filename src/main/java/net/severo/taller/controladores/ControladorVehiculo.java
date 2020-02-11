@@ -78,13 +78,37 @@ public class ControladorVehiculo {
                     v = new Vehiculo(id, matricula, esElectrico, fecha);
                     ServicioVehiculo.getServicio().crearVehiculo(v);
                 } catch (ServiciosException e) {
-                    e.printStackTrace();
+                    vv.mostrarError("Error al generar un nuevo vehiculo en el controlador: " + e);
                 } catch (DAOException e) {
-                    e.printStackTrace();
+                    vv.mostrarError("Error desde el controlador al intentar obtener los datos, el vehiculo no será creado: " + e);
                 }
 
                 break;
             case 2:
+                matricula = vv.pedirMatriculaAutomática();
+                if (matricula == null) {
+                    return;
+                }
+                esElectrico = vv.pedirEsElectrico();
+                if (esElectrico == null) {
+                    return;
+                }
+                fecha = vv.pedirFechaMatriculacion();
+                if (fecha == null) {
+                    return;
+                }
+
+                //rellenamos el vehiculo
+                try {
+                    v = new Vehiculo(id, matricula, esElectrico, fecha);
+                    ServicioVehiculo.getServicio().crearVehiculo(v);
+                } catch (ServiciosException e) {
+                    vv.mostrarError("Error al generar un nuevo vehiculo en el controlador: " + e);
+                } catch (DAOException e) {
+                    vv.mostrarError("Error desde el controlador al intentar obtener los datos, el vehiculo no será creado: " + e);
+                }
+
+                break;
         }
 
 
