@@ -30,7 +30,7 @@ public class ControladorVehiculo {
                     this.ControladorMostrarListaVehiculos();
                     break;
                 case 3:
-                    //this.modificarVehiculo();
+                    this.ControladorModificarVehiculo();
                     break;
                 case 4:
                     this.ControladorEliminarVehiculo();
@@ -42,6 +42,7 @@ public class ControladorVehiculo {
             }
         } while (true);
     }
+
 
     public void ControladorNuevoVehiculo() {
         Vehiculo v;
@@ -137,6 +138,51 @@ public class ControladorVehiculo {
             vv.mostrarError("Error al intentar mostrar los datos: " + ex);
             ex.printStackTrace();
         }
+    }
+
+    public void ControladorModificarVehiculo() {
+        //aqui podemos iniciar transaccion
+
+        try {
+            vv.mostrarListaVehiculos(ServicioVehiculo.getServicio().obtenerVehiculos());
+            Integer codigoVehiculo = vv.pedirIdVehiculo();
+            if (codigoVehiculo == null) {
+                return;
+            }
+            Integer opcion;
+            opcion = vv.menuModificarVehiculo();
+            if (opcion != null) {
+                switch (opcion) {
+                    case 1:
+                        String matricula = vv.pedirMatriculaManual();
+                        if (matricula != null) {
+                            ServicioVehiculo.getServicio().modificarMatricula(codigoVehiculo, matricula);
+                        }
+                        break;
+                    case 2:
+                        Boolean esElectrico = vv.pedirEsElectrico();
+                        if (esElectrico != null) {
+                            ServicioVehiculo.getServicio().modificarEsElectrico(codigoVehiculo, esElectrico);
+                        }
+                        break;
+
+                    case 3:
+                        Date fecha = vv.pedirFechaMatriculacion();
+                        if (fecha != null) {
+                            ServicioVehiculo.getServicio().modificarFechaMatriculacion(codigoVehiculo, fecha);
+                        }
+                        break;
+
+                }
+
+            }
+
+        } catch (DAOException e) {
+            vv.mostrarError("Error al intentar obtener los datos: " + e.getMessage());
+        } catch (ServiciosException e) {
+            vv.mostrarError("Error al modificar un vehiculo: " + e.getMessage());
+        }
+
     }
 
 }
