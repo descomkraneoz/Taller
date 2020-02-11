@@ -24,16 +24,16 @@ public class ControladorVehiculo {
             }
             switch (opcion) {
                 case 1:
-                    this.nuevoVehiculo();
+                    this.ControladorNuevoVehiculo();
                     break;
                 case 2:
-                    this.mostrarListaVehiculos();
+                    this.ControladorMostrarListaVehiculos();
                     break;
                 case 3:
-                    this.modificarVehiculo();
+                    //this.modificarVehiculo();
                     break;
                 case 4:
-                    this.eliminarVehiculo();
+                    this.ControladorEliminarVehiculo();
                     break;
                 case 5:
                     //No implementado
@@ -43,7 +43,7 @@ public class ControladorVehiculo {
         } while (true);
     }
 
-    public void nuevoVehiculo() {
+    public void ControladorNuevoVehiculo() {
         Vehiculo v;
 
         //Aqui podria iniciar transacción
@@ -110,8 +110,33 @@ public class ControladorVehiculo {
 
                 break;
         }
+    }
 
+    public void ControladorEliminarVehiculo() {
+        try {
+            vv.mostrarListaVehiculos(ServicioVehiculo.getServicio().obtenerVehiculos());
+            Integer codigo = vv.pedirIdVehiculo();
+            if (codigo == null) {
+                return;
+            }
+            ServicioVehiculo.getServicio().eliminarVehiculo(codigo);
+        } catch (DAOException dao) {
+            vv.mostrarError("Error al intentar obtener los datos: " + dao.getMessage());
+        } catch (ServiciosException se) {
+            vv.mostrarError("Error al eliminar un vehiculo: " + se.getMessage());
+        }
+    }
 
+    public void ControladorMostrarListaVehiculos() {
+        try {
+            vv.mostrarListaVehiculos(ServicioVehiculo.getServicio().obtenerVehiculos());
+        } catch (DAOException ex) {
+            vv.mostrarError("Error al intentar obtener los datos" + ex);
+            ex.printStackTrace();
+        } catch (ServiciosException ex) {
+            vv.mostrarError("Error al intentar mostrar los datos: " + ex);
+            ex.printStackTrace();
+        }
     }
 
 }
