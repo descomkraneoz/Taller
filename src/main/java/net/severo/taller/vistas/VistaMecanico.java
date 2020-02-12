@@ -1,5 +1,6 @@
 package net.severo.taller.vistas;
 
+import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
 
 import java.text.ParseException;
@@ -54,7 +55,7 @@ public class VistaMecanico {
             } else {
                 opcion = Integer.parseInt(entrada);
             }
-            if (opcion > 6 || opcion < 0) {
+            if (opcion > 5 || opcion < 0) {
                 System.out.println("Opción no valida, elija una opción del 1-5 o 0 para Salir");
                 opcion = -1;
             }
@@ -141,5 +142,29 @@ public class VistaMecanico {
         } while (!salir);
         return vehiculos;
     }
+
+    public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
+        System.out.println("<<<<--------------- MECANICOS ------------->>>>");
+        System.out.println("ID      NOMBRE COMPLETO       NÚMERO DE VEHICULOS");
+
+        for (Mecanico m : mecanicos) {
+
+            System.out.printf("%-7d %-20s %-10d  \n", m.getIdMecanico(), m.getNombreMecanico(), m.getVehiculos().size());
+        }
+    }
+
+    public void mostrarIdyNombreMecanicos(List<Mecanico> mecanicos) {
+        System.out.println("Id de todos los mecanicos:");
+        String salida = "";
+        for (Mecanico p : mecanicos) {
+            salida += " " + p.getIdMecanico() + " :" + p.getNombreMecanico();
+        }
+        System.out.println(salida);
+    }
+
+    public void mostrarError(String mensaje) {
+        System.err.println(mensaje);
+    }
+
 
 }

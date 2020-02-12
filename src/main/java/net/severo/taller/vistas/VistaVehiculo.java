@@ -220,7 +220,7 @@ public class VistaVehiculo {
         String fechaStr;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fechaStr = sdf.format(v.getFechaMatriculacion());
-        System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico(), fechaStr);
+        System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
 
     }
 
@@ -231,7 +231,7 @@ public class VistaVehiculo {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (Vehiculo v : vehiculos) {
             fechaStr = sdf.format(v.getFechaMatriculacion());
-            System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico(), fechaStr);
+            System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
         }
 
     }
