@@ -93,11 +93,41 @@ public class ServicioMecanico {
 
     //modificar nombre de un mecanico
     public void modificarNombreMecanico(int idMecanico, String nuevoNombre) throws DAOException, ServiciosException {
-        Mecanico m = o(idMecanico);
-        m.setMatricula(nuevaMatricula);
-        idao.modificarVehiculo(v);
+        Mecanico m = this.obtenerMecanicoPorID(idMecanico);
+        m.setNombreMecanico(nuevoNombre);
+        idao.modificarMecanico(m);
     }
 
+
+    //modificar lista de vehiculos de un mecanico
+    public void modificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
+        Mecanico m = this.obtenerMecanicoPorID(idMecanico);
+        m.setVehiculos(nuevaLista);
+        idao.modificarMecanico(m);
+    }
+
+    public List<Mecanico> obtenerUnMecanicoDeLista(int id) throws DAOException, ServiciosException {
+        List<Mecanico> mecanicos = idao.obtenerTodosMecanicos(id);
+        if (mecanicos.isEmpty()) {
+            throw new ServiciosException("No hay ningun mecanico con ese id de vehiculo");
+        }
+        return mecanicos;
+    }
+
+    public int obtenerNumeroDeVehiculosDelMecanico(int codigoMecanico) throws DAOException, ServiciosException {
+        int contador = 0;
+        for (Mecanico m : this.obtenerUnMecanicoDeLista(codigoMecanico)) {
+            for (Vehiculo v : m.getVehiculos()) {
+                if (v.getMatricula() != null) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+
+    //transacciones
 
     public void iniciarTransaccion() throws DAOException {
         idao.iniciarTransaccion();
