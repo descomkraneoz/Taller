@@ -5,6 +5,7 @@ import net.severo.taller.DAO.IMecanico;
 import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioMecanico {
@@ -79,6 +80,32 @@ public class ServicioMecanico {
         }
         return v;
     }
+
+    public List<Vehiculo> obtenerListaVehiculos(int idMecanico) throws DAOException, ServiciosException {
+        ServicioVehiculo.getServicio().obtenerVehiculo(idMecanico);
+        List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
+        if (v.isEmpty()) {
+            throw new ServiciosException("No hay ningun vehiculo para ese id de mecánico");
+        }
+        return v;
+    }
+
+    public ArrayList<Vehiculo> obtenerTodosLosVehiculos() throws DAOException, ServiciosException {
+        //dao.iniciarTransaccion();
+        List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
+        ArrayList<Vehiculo> totalVehiculos = new ArrayList<>();
+        //dao.finalizarTransaccion();
+        for (Mecanico r : mecanicos) {
+            for (Vehiculo p : r.getVehiculos()) {
+                totalVehiculos.add(p);
+            }
+        }
+        return totalVehiculos;
+    }
+
+
+
+
 
     //eliminar un mecanico
 

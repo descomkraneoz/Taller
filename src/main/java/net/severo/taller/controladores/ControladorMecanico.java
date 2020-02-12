@@ -1,7 +1,9 @@
 package net.severo.taller.controladores;
 
 import net.severo.taller.DAO.DAOException;
+import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
+import net.severo.taller.servicio.ServicioMecanico;
 import net.severo.taller.servicio.ServiciosException;
 import net.severo.taller.vistas.VistaMecanico;
 
@@ -54,9 +56,9 @@ public class ControladorMecanico {
             return;
         }
         //Vehiculos del mecanico
-        List<Vehiculo> vehiculosDeEsteMecanico = new ArrayList<>();
+        ArrayList<Vehiculo> vehiculosDeEsteMecanico = new ArrayList<>();
         try {
-            vehiculosDeEsteMecanico = ServicioMecanico.getServicio().;
+            vehiculosDeEsteMecanico = ServicioMecanico.getServicioMecanico().obtenerTodosLosVehiculos();
         } catch (DAOException ex) {
             vm.mostrarError("Error en el controlador al intentar obtener los datos: " + ex.getMessage());
             return;
@@ -68,6 +70,17 @@ public class ControladorMecanico {
         if (vehiculos == null) {
             return;
         }
+        Mecanico mc = new Mecanico(id, nombre, vehiculos);
+        try {
+            ServicioMecanico.getServicioMecanico().nuevoMecanico(mc);
+        } catch (DAOException ex) {
+            vm.mostrarError("Error al intentar acceder a los datos: " + ex.getMessage());
+
+        } catch (ServiciosException ex) {
+            vm.mostrarError("Error al intentar crear la reserva: " + ex.getMessage());
+        }
+
+        //aqui podemos finalizar transacción
 
     }
 
