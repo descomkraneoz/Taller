@@ -63,6 +63,28 @@ public class VistaMecanico {
         return opcion;
     }
 
+    public Integer menuModificarMecanico() {
+        Scanner sc = new Scanner(System.in);
+        String respuesta;
+        int opcion;
+        do {
+            System.out.println(" 1.-Nombre \n 2.-Lista vehiculos \n 3.-Añadir vehiculo a la lista");
+            System.out.println("¿Qué quiere modificar?");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                continue;
+            }
+            opcion = Integer.parseInt(respuesta);
+            if (opcion == 0) {
+                return null;
+            }
+            if (opcion > 0 && opcion < 3) {
+                return opcion;
+            }
+        } while (true);
+
+    }
+
     public Integer pedirIdMecanico() {
         String respuesta;
         Scanner sc = new Scanner(System.in);
