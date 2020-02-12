@@ -193,6 +193,27 @@ public class VistaVehiculo {
 
     }
 
+    public Vehiculo crearVehiculoVista() {
+        Integer id = this.pedirIdVehiculo();
+        if (id == null) {
+            return null;
+        }
+        String matricula = this.pedirMatriculaManual();
+        if (matricula == null) {
+            return null;
+        }
+        Boolean esElectrico = this.pedirEsElectrico();
+        if (esElectrico == null) {
+            return null;
+        }
+        Date fechaMatriculacion = this.pedirFechaMatriculacion();
+        new SimpleDateFormat("dd/MM/yyyy").format(fechaMatriculacion);
+        if (fechaMatriculacion == null) {
+            return null;
+        }
+        return new Vehiculo(id, matricula, esElectrico, fechaMatriculacion);
+    }
+
     public void mostrarUnVehiculo(Vehiculo v) {
         System.out.println("--------------- VEHICULO SELECCIONADO -------------");
         System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");

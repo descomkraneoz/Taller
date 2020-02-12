@@ -22,7 +22,7 @@ public class ControladorPrincipal {
 
             try {
                 ServicioVehiculo.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
-                //ServicioReserva.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
+                ServicioReserva.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
             } catch (DAOException ex) {
                 vp.mostrarError("Ha habido un error al iniciar el sistema de almacenamiento " + ex.getMessage());
             }
@@ -39,10 +39,10 @@ public class ControladorPrincipal {
                     //Salimos
                     return;
                 case 1:
-                    //new ControladorVehiculo().iniciarVehiculo();
+                    new ControladorVehiculo().iniciarVehiculo();
                     break;
                 case 2:
-                    //new ControladorMecanico().iniciarMecanico();
+                    new ControladorMecanico().iniciarMecanico();
                     break;
                 case 3:
                     //new ControladorInformes().iniciarInformes();
