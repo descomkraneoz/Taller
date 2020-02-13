@@ -86,7 +86,7 @@ public class VistaVehiculo {
         } while (true);
     }
 
-    public String pedirMatriculaManual() {
+    public String pedirMatricula() {
         String respuesta;
         Scanner sc = new Scanner(System.in);
         do {
@@ -103,13 +103,6 @@ public class VistaVehiculo {
         } while (respuesta.length() < 3 || respuesta.length() > 7 || respuesta == null);
         return respuesta;
     }
-
-    public String pedirMatriculaAutomática() {
-        System.out.println("La matricula para el vehiculo es: " + Vehiculo.generaMatricula());
-        String respuesta = Vehiculo.generaMatricula();
-        return respuesta;
-    }
-
 
     public Date pedirFechaMatriculacion() {
         String respuesta;
@@ -149,28 +142,6 @@ public class VistaVehiculo {
 
     }
 
-    public Integer menuAsignarMatricula() {
-        Scanner sc = new Scanner(System.in);
-        String respuesta;
-        int opcion;
-        do {
-            System.out.println(" 1.-Asignar matricula manualmente \n 2.-Asignar matricula automáticamente");
-            System.out.println("¿Como desea introducir la matricula del vehiculo?");
-            respuesta = sc.nextLine();
-            if (!esEntero(respuesta)) {
-                continue;
-            }
-            opcion = Integer.parseInt(respuesta);
-            if (opcion == 0) {
-                return null;
-            }
-            if (opcion > 0 && opcion < 2) {
-                return opcion;
-            }
-        } while (true);
-
-    }
-
     public Integer menuModificarVehiculo() {
         Scanner sc = new Scanner(System.in);
         String respuesta;
@@ -198,7 +169,7 @@ public class VistaVehiculo {
         if (id == null) {
             return null;
         }
-        String matricula = this.pedirMatriculaManual();
+        String matricula = this.pedirMatricula();
         if (matricula == null) {
             return null;
         }

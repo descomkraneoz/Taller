@@ -125,6 +125,7 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
+                        //Añadir lista de vehiculos a mecanico
                         VistaVehiculo vv = new VistaVehiculo();
                         ArrayList<Vehiculo> vehiculosCreados = new ArrayList<>();
                         vehiculosCreados.add(vv.crearVehiculoVista());
@@ -135,25 +136,24 @@ public class ControladorMecanico {
                         break;
 
                     case 3:
-                        Date fecha = vv.pedirFechaMatriculacion();
-                        if (fecha != null) {
+                        //Añadir vehiculos a la lista
+                        /*if (fecha != null) {
                             ServicioVehiculo.getServicio().modificarFechaMatriculacion(codigoVehiculo, fecha);
                         }
-                        break;
+                        break;*/
 
                 }
 
             }
 
         } catch (DAOException e) {
-            vv.mostrarError("Error al intentar obtener los datos: " + e.getMessage());
+            vm.mostrarError("Error al intentar obtener los datos: " + e.getMessage());
         } catch (ServiciosException e) {
-            vv.mostrarError("Error al modificar un vehiculo: " + e.getMessage());
+            vm.mostrarError("Error al modificar mecánico: " + e.getMessage());
         }
 
     }
 
-}
 
     public void ControladorEliminarMecanico() {
         try {

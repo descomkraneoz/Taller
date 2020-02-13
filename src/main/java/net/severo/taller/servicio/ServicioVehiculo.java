@@ -37,22 +37,22 @@ public class ServicioVehiculo {
 
     //crear un vehiculo nuevo
 
-    public void crearVehiculo(Vehiculo v) throws ServiciosException, DAOException {
-        if (idao.obtenerVehiculoPorID(v.getIdVehiculo()) != null) {
+    public void servicioCrearVehiculo(Vehiculo v) throws ServiciosException, DAOException {
+        if (idao.obtenerUnVehiculoPorID(v.getIdVehiculo()) != null) {
             throw new ServiciosException("El vehiculo ya existe con esa id.");
         }
 
-        idao.iniciarTransaccion();
+        //idao.iniciarTransaccion();
 
-        idao.crearNuevoVehiculo(v);
+        idao.crearNuevoVehiculoDAO(v);
 
-        idao.finalizarTransaccion();
+        //idao.finalizarTransaccion();
 
     }
 
     //obtener un vehiculo a partir de su id
 
-    public Vehiculo obtenerVehiculo(int idVehiculo) throws DAOException, ServiciosException {
+    public Vehiculo servicioObtenerVehiculo(int idVehiculo) throws DAOException, ServiciosException {
         List<Vehiculo> vehiculos = idao.obtenerTodosVehiculos();
         for (Vehiculo v : vehiculos) {
             if (v.getIdVehiculo()==(idVehiculo)) {
@@ -64,15 +64,15 @@ public class ServicioVehiculo {
 
     //elimina un vehiculo al pasarle un id
 
-    public void eliminarVehiculo(int codigoVehiculo) throws DAOException, ServiciosException {
-        this.obtenerVehiculo(codigoVehiculo);
-        idao.eliminarVehiculo(codigoVehiculo);
+    public void servicioEliminarVehiculo(int codigoVehiculo) throws DAOException, ServiciosException {
+        this.servicioObtenerVehiculo(codigoVehiculo);
+        idao.eliminarVehiculoDAO(codigoVehiculo);
 
     }
 
     //devuelve una lista con los vehiculos
 
-    public List<Vehiculo> obtenerVehiculos() throws DAOException, ServiciosException {
+    public List<Vehiculo> servicioObtenerVehiculos() throws DAOException, ServiciosException {
         List<Vehiculo> vehiculos = idao.obtenerTodosVehiculos();
         if (vehiculos.isEmpty()) {
             throw new ServiciosException("No hay ningún vehiculo");
@@ -82,7 +82,7 @@ public class ServicioVehiculo {
 
     //devuelve una lista con los vehiculos a partir de la fecha de matriculación de estos
 
-    public List<Vehiculo> obtenerVehiculosFechaMatriculacion(Date fecha) throws DAOException, ServiciosException {
+    public List<Vehiculo> servicioObtenerVehiculosFechaMatriculacion(Date fecha) throws DAOException, ServiciosException {
         List<Vehiculo> vehiculos = idao.obtenerVehiculosPorFechaMatriculacion(fecha);
         if (vehiculos.isEmpty()) {
             throw new ServiciosException("No hay ningún vehiculo con esa fecha de matriculación");
@@ -92,7 +92,7 @@ public class ServicioVehiculo {
 
     //devuelve una lista con los vehiculos electricos
 
-    public List<Vehiculo> obtenerVehiculosElectricos(boolean esElectrico) throws DAOException, ServiciosException {
+    public List<Vehiculo> servicioObtenerVehiculosElectricos(boolean esElectrico) throws DAOException, ServiciosException {
         List<Vehiculo> vehiculos = idao.obtenerTodosVehiculosElectricos(esElectrico);
         if (vehiculos.isEmpty()) {
             throw new ServiciosException("No hay ningún vehiculo eléctrico");
@@ -102,49 +102,27 @@ public class ServicioVehiculo {
 
     //modifica la matricula de un vehiculo
 
-    public void modificarMatricula(int idVehiculo, String nuevaMatricula) throws DAOException, ServiciosException {
-        Vehiculo v = this.obtenerVehiculo(idVehiculo);
+    public void servicioModificarMatricula(int idVehiculo, String nuevaMatricula) throws DAOException, ServiciosException {
+        Vehiculo v = this.servicioObtenerVehiculo(idVehiculo);
         v.setMatricula(nuevaMatricula);
-        idao.modificarVehiculo(v);
+        idao.modificarVehiculoDAO(v);
     }
 
     //modifica la propiedad de un vehiculo sobre si es o no electrico
 
-    public void modificarEsElectrico(int idVehiculo, boolean esElectrico) throws DAOException, ServiciosException {
-        Vehiculo v = this.obtenerVehiculo(idVehiculo);
+    public void servicioModificarEsElectrico(int idVehiculo, boolean esElectrico) throws DAOException, ServiciosException {
+        Vehiculo v = this.servicioObtenerVehiculo(idVehiculo);
         v.setEsElectrico(esElectrico);
-        idao.modificarVehiculo(v);
+        idao.modificarVehiculoDAO(v);
     }
 
     //modifica la fecha de matriculacion de un vehiculo
 
-    public void modificarFechaMatriculacion(int idVehiculo, Date nuevaFechaMatriculacion) throws DAOException, ServiciosException {
-        Vehiculo v = this.obtenerVehiculo(idVehiculo);
+    public void servicioModificarFechaMatriculacion(int idVehiculo, Date nuevaFechaMatriculacion) throws DAOException, ServiciosException {
+        Vehiculo v = this.servicioObtenerVehiculo(idVehiculo);
         v.setFechaMatriculacion(nuevaFechaMatriculacion);
-        idao.modificarVehiculo(v);
+        idao.modificarVehiculoDAO(v);
     }
-
-    /*public void comprobarTarjetasEnReservasConEsteVuelo(String codigoVuelo) throws DAOException, ServiciosException {
-        List<Reserva> reservas=new ArrayList<>();
-        //Hacemos esto para evitar que se lancen las excepciones de servicio las cuales no tiene sentido aqui
-        try{
-            reservas=ServicioReserva.getServicio().obtenerReservas(codigoVuelo);
-        }catch(ServiciosException se){}
-        for (Reserva r : reservas) {
-            ServicioReserva.getServicio().tieneTarjetaDeEmbarque(r);
-        }
-    }
-
-    public void comprobarReservas(String codigo) throws DAOException, ServiciosException {
-        List<Reserva> reservas=new ArrayList<>();
-        //Hacemos esto para evitar que se lancen las excepciones de servicio las cuales no tiene sentido aqui
-        try{
-            reservas=ServicioReserva.getServicio().obtenerReservas(codigo);
-        }catch(ServiciosException se){}
-        if(!(reservas.isEmpty())){
-            throw new ServiciosException("Este vuelo tiene reservas hechas");
-        }
-    }*/
 
 
 

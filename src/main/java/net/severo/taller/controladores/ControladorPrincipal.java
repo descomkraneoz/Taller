@@ -1,6 +1,7 @@
 package net.severo.taller.controladores;
 
 import net.severo.taller.DAO.DAOException;
+import net.severo.taller.servicio.ServicioMecanico;
 import net.severo.taller.servicio.ServicioVehiculo;
 import net.severo.taller.vistas.VistaPrincipal;
 
@@ -22,7 +23,7 @@ public class ControladorPrincipal {
 
             try {
                 ServicioVehiculo.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
-                ServicioReserva.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
+                ServicioMecanico.getServicioMecanico().elegirSistemaAlmacenamiento(sistemaAl);
             } catch (DAOException ex) {
                 vp.mostrarError("Ha habido un error al iniciar el sistema de almacenamiento " + ex.getMessage());
             }
