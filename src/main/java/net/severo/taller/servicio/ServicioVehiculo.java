@@ -1,6 +1,7 @@
 package net.severo.taller.servicio;
 
 import net.severo.taller.DAO.DAOException;
+import net.severo.taller.DAO.Hibernate.VehiculoHibernate;
 import net.severo.taller.DAO.IVehiculo;
 import net.severo.taller.pojo.Vehiculo;
 
@@ -27,7 +28,7 @@ public class ServicioVehiculo {
         }
         if (opcion == 2) {
 
-            //idao=new VehiculoHIBERNATE();
+            idao = new VehiculoHibernate();
         }
         if (opcion == 3) {
 

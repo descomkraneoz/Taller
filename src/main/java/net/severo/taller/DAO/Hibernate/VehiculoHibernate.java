@@ -91,7 +91,7 @@ public class VehiculoHibernate implements IVehiculo {
             List<Vehiculo> lista;
 
             // Hacemos la consulta
-            Query q = sesion.createQuery("from vehiculo");
+            Query q = sesion.createQuery("from Vehiculo");
             lista = q.list();
             for (Vehiculo j : lista) {
                 Hibernate.initialize(j.getIdVehiculo());

@@ -1,6 +1,7 @@
 package net.severo.taller.servicio;
 
 import net.severo.taller.DAO.DAOException;
+import net.severo.taller.DAO.Hibernate.MecanicoHibernate;
 import net.severo.taller.DAO.IMecanico;
 import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
@@ -27,7 +28,7 @@ public class ServicioMecanico {
         }
         if (opcion == 2) {
 
-            //idao=new ReservaHibernate();
+            idao = new MecanicoHibernate();
         }
         if (opcion == 3) {
 
@@ -38,7 +39,7 @@ public class ServicioMecanico {
 
     //obtener un mecanico a partir de su id
 
-    public Mecanico obtenerMecanicoPorID(int idMecanico) throws DAOException, ServiciosException {
+    public Mecanico servicioObtenerMecanicoPorID(int idMecanico) throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
         for (Mecanico m : mecanicos) {
             if (m.getIdMecanico() == (idMecanico)) {
@@ -50,7 +51,7 @@ public class ServicioMecanico {
 
     //crear un nuevo mecanico
 
-    public void nuevoMecanico(Mecanico r) throws ServiciosException, DAOException {
+    public void servicioNuevoMecanico(Mecanico r) throws ServiciosException, DAOException {
         if (idao.obtenerMecanicoPorID(r.getIdMecanico()) != null) {
             throw new ServiciosException("El mecánico ya existe.");
         }
@@ -61,7 +62,7 @@ public class ServicioMecanico {
 
     //obtener todos los mecanicos en una lista
 
-    public List<Mecanico> obtenerTodosMecanicos() throws DAOException, ServiciosException {
+    public List<Mecanico> servicioObtenerTodosMecanicos() throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
         if (mecanicos.isEmpty()) {
             throw new ServiciosException("No hay ningun mecánico");
@@ -73,7 +74,7 @@ public class ServicioMecanico {
     //obtener un listado de vehiculos al pasarle una id de mecanico
 
     public List<Vehiculo> obtenerListaVehiculosAPartirIdMecanico(int idMecanico) throws DAOException, ServiciosException {
-        ServicioVehiculo.getServicio().obtenerVehiculo(idMecanico);
+        ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
         List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
         if (v.isEmpty()) {
             throw new ServiciosException("No hay ningun vehiculo para ese id de mecánico");
@@ -82,7 +83,7 @@ public class ServicioMecanico {
     }
 
     public List<Vehiculo> obtenerListaVehiculos(int idMecanico) throws DAOException, ServiciosException {
-        ServicioVehiculo.getServicio().obtenerVehiculo(idMecanico);
+        ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
         List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
         if (v.isEmpty()) {
             throw new ServiciosException("No hay ningun vehiculo para ese id de mecánico");
@@ -90,7 +91,7 @@ public class ServicioMecanico {
         return v;
     }
 
-    public ArrayList<Vehiculo> obtenerTodosLosVehiculos() throws DAOException, ServiciosException {
+    public ArrayList<Vehiculo> servicioObtenerTodosLosVehiculos() throws DAOException, ServiciosException {
         //dao.iniciarTransaccion();
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
         ArrayList<Vehiculo> totalVehiculos = new ArrayList<>();
@@ -117,9 +118,9 @@ public class ServicioMecanico {
 
     //eliminar un mecanico al pasarle un id
 
-    public void eliminarMecanico(int codigo) throws DAOException, ServiciosException {
+    public void servicioEliminarMecanico(int codigo) throws DAOException, ServiciosException {
 
-        if (obtenerMecanicoPorID(codigo) == null) {
+        if (servicioObtenerMecanicoPorID(codigo) == null) {
             throw new ServiciosException("El mecánico no existe");
         }
         idao.eliminarMecanico(codigo);
@@ -127,21 +128,21 @@ public class ServicioMecanico {
     }
 
     //modificar nombre de un mecanico
-    public void modificarNombreMecanico(int idMecanico, String nuevoNombre) throws DAOException, ServiciosException {
-        Mecanico m = this.obtenerMecanicoPorID(idMecanico);
+    public void servicioModificarNombreMecanico(int idMecanico, String nuevoNombre) throws DAOException, ServiciosException {
+        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
         m.setNombreMecanico(nuevoNombre);
         idao.modificarMecanico(m);
     }
 
 
     //modificar lista de vehiculos de un mecanico
-    public void modificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
-        Mecanico m = this.obtenerMecanicoPorID(idMecanico);
+    public void servicioModificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
+        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
         m.setVehiculos(nuevaLista);
         idao.modificarMecanico(m);
     }
 
-    public List<Mecanico> obtenerListaMecanicosPorId(int id) throws DAOException, ServiciosException {
+    public List<Mecanico> servicioObtenerListaMecanicosPorId(int id) throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos(id);
         if (mecanicos.isEmpty()) {
             throw new ServiciosException("No hay ningun mecanico con ese id de vehiculo");
@@ -151,7 +152,7 @@ public class ServicioMecanico {
 
     public int obtenerNumeroDeVehiculosDelMecanico(int codigoMecanico) throws DAOException, ServiciosException {
         int contador = 0;
-        for (Mecanico m : this.obtenerListaMecanicosPorId(codigoMecanico)) {
+        for (Mecanico m : this.servicioObtenerListaMecanicosPorId(codigoMecanico)) {
             for (Vehiculo v : m.getVehiculos()) {
                 if (v.getMatricula() != null) {
                     contador++;

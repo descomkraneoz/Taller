@@ -10,10 +10,12 @@ public interface IMecanico {
     void modificarMecanico(Mecanico mecanico)throws DAOException ;
     void eliminarMecanico(int idMecanico)throws DAOException ;
     List<Mecanico> obtenerTodosMecanicos()  throws DAOException ;
-    List<Mecanico> obtenerTodosMecanicos(int idVehiculo) throws DAOException;
+
+    List<Mecanico> obtenerTodosMecanicos(int idMecanico) throws DAOException;
 
     List<Vehiculo> obtenerVehiculosPorMecanico() throws DAOException;
-    List<Vehiculo> obtenerVehiculosPorMecanico(int idMecanico) throws DAOException;
+
+    List<Vehiculo> obtenerVehiculosPorMecanico(int idVehiculo) throws DAOException;
 
     Mecanico obtenerMecanicoPorID(int id) throws DAOException;
 

@@ -157,7 +157,7 @@ public class VistaVehiculo {
             if (opcion == 0) {
                 return null;
             }
-            if (opcion > 0 && opcion < 3) {
+            if (opcion > 0 && opcion < 4) {
                 return opcion;
             }
         } while (true);
@@ -196,15 +196,15 @@ public class VistaVehiculo {
     }
 
     public void mostrarListaVehiculos(List<Vehiculo> vehiculos) {
-        System.out.println("--------------- VEHICULOS -------------");
+        System.out.println("------------------ VEHICULOS -----------------------");
         System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
         String fechaStr;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (Vehiculo v : vehiculos) {
             fechaStr = sdf.format(v.getFechaMatriculacion());
-            System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
+            System.out.printf("%-8s %-13s %-15s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
         }
-
+        System.out.println("----------------------------------------------------");
     }
 
     public void mostrarError(String mensaje) {

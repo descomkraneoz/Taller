@@ -67,7 +67,7 @@ public class MecanicoHibernate implements IMecanico {
 
             List<Mecanico> lista;
 
-            Query q = sesion.createQuery("from mecanico");
+            Query q = sesion.createQuery("from Mecanico");
             lista = q.list();
             for (Mecanico j : lista) {
                 Hibernate.initialize(j.getIdMecanico());

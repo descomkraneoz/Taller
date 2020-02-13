@@ -59,7 +59,7 @@ public class ControladorMecanico {
         //Vehiculos del mecanico
         ArrayList<Vehiculo> vehiculosDeEsteMecanico = new ArrayList<>();
         try {
-            vehiculosDeEsteMecanico = ServicioMecanico.getServicioMecanico().obtenerTodosLosVehiculos();
+            vehiculosDeEsteMecanico = ServicioMecanico.getServicioMecanico().servicioObtenerTodosLosVehiculos();
         } catch (DAOException ex) {
             vm.mostrarError("Error en el controlador al intentar obtener los datos: " + ex.getMessage());
             return;
@@ -73,7 +73,7 @@ public class ControladorMecanico {
         }
         Mecanico mc = new Mecanico(id, nombre, vehiculos);
         try {
-            ServicioMecanico.getServicioMecanico().nuevoMecanico(mc);
+            ServicioMecanico.getServicioMecanico().servicioNuevoMecanico(mc);
         } catch (DAOException ex) {
             vm.mostrarError("Error al intentar acceder a los datos: " + ex.getMessage());
 
@@ -87,7 +87,7 @@ public class ControladorMecanico {
 
     public void ControladorMostrarMecanicos() {
         try {
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().obtenerTodosMecanicos());
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
         } catch (DAOException ex) {
             vm.mostrarError("Error de controlador al intentar obtener los datos: " + ex);
         } catch (ServiciosException ex) {
@@ -97,7 +97,7 @@ public class ControladorMecanico {
 
     public void ControladorMostrarMecanicos(int codigo) {
         try {
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().obtenerListaMecanicosPorId(codigo));
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerListaMecanicosPorId(codigo));
         } catch (DAOException ex) {
             vm.mostrarError("Error al intentar obtener los datos: " + ex);
         } catch (ServiciosException ex) {
@@ -109,7 +109,7 @@ public class ControladorMecanico {
         //aqui podemos iniciar transaccion
 
         try {
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().obtenerTodosMecanicos());
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
             Integer codigo = vm.pedirIdMecanico();
             if (codigo == null) {
                 return;
@@ -121,7 +121,7 @@ public class ControladorMecanico {
                     case 1:
                         String nombre = vm.pedirNombreYApellidosMecanico();
                         if (nombre != null) {
-                            ServicioMecanico.getServicioMecanico().modificarNombreMecanico(codigo, nombre);
+                            ServicioMecanico.getServicioMecanico().servicioModificarNombreMecanico(codigo, nombre);
                         }
                         break;
                     case 2:
@@ -131,7 +131,7 @@ public class ControladorMecanico {
                         vehiculosCreados.add(vv.crearVehiculoVista());
                         List<Vehiculo> vehiculos = vm.pedirListaVehiculos(vehiculosCreados);
                         if (vehiculos != null) {
-                            ServicioMecanico.getServicioMecanico().modificarListaVehiculosMecanico(codigo, vehiculos);
+                            ServicioMecanico.getServicioMecanico().servicioModificarListaVehiculosMecanico(codigo, vehiculos);
                         }
                         break;
 
@@ -157,12 +157,12 @@ public class ControladorMecanico {
 
     public void ControladorEliminarMecanico() {
         try {
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().obtenerTodosMecanicos());
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
             Integer codigo = vm.pedirIdMecanico();
             if (codigo == null) {
                 return;
             }
-            ServicioMecanico.getServicioMecanico().eliminarMecanico(codigo);
+            ServicioMecanico.getServicioMecanico().servicioEliminarMecanico(codigo);
         } catch (DAOException dao) {
             vm.mostrarError("Error al intentar obtener los datos: " + dao.getMessage());
         } catch (ServiciosException se) {
