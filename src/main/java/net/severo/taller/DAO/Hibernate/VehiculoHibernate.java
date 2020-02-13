@@ -49,17 +49,10 @@ public class VehiculoHibernate implements IVehiculo {
             Vehiculo j = this.obtenerUnVehiculoPorID(idVehiculo);
             Session sesion = SesionHibernate.getInstance().getSesion();
 
-            // Iniciamos una transaccion
-            //Transaction tx = sesion.beginTransaction();
 
-            // Hacemos los cambios
             sesion.delete(j);
 
-            // Cerramos la transaccion
-            //tx.commit();
 
-            // Cerramos la sesion
-            //sesion.close();
         } catch (Exception e) {
             throw new DAOException("Ha habido un problema al eliminar el vehiculo", e);
         }

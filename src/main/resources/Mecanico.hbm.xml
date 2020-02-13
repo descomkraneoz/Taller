@@ -11,9 +11,13 @@
         <property name="nombreMecanico" type="java.lang.String">
             <column name="NOMBRE"/>
         </property>
-        <list name="vehiculos" cascade="all">
-            <key column="MECANICO"/>
-            <index column="MECANICO_INDEX"/>
+        <list name="vehiculos" cascade="all" inverse="false">
+            <key>
+                <column name="ID_MECANICO"/>
+            </key>
+            <list-index>
+                <column name="ORDEN_OBJ_LISTAS"/>
+            </list-index>
             <one-to-many class="net.severo.taller.pojo.Vehiculo"/>
         </list>
     </class>

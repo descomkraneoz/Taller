@@ -136,7 +136,6 @@ public class ControladorVehiculo {
                             ServicioVehiculo.getServicio().servicioModificarFechaMatriculacion(codigoVehiculo, fecha);
                         }
                         break;
-
                 }
 
             }

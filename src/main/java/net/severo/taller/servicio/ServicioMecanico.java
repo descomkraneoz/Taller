@@ -65,7 +65,7 @@ public class ServicioMecanico {
     public List<Mecanico> servicioObtenerTodosMecanicos() throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
         if (mecanicos.isEmpty()) {
-            throw new ServiciosException("No hay ningun mecánico");
+            throw new ServiciosException("No hay ningun mecánico en la base de datos");
         }
 
         return mecanicos;
