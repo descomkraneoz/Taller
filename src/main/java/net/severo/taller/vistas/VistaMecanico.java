@@ -68,7 +68,7 @@ public class VistaMecanico {
         String respuesta;
         int opcion;
         do {
-            System.out.println(" 1.-Nombre \n 2.-Lista vehiculos \n 3.-Añadir vehiculo a la lista");
+            System.out.println(" 1.-Nombre \n 2.-Nueva Lista vehiculos \n 3.-Añadir vehiculo a la lista");
             System.out.println("¿Qué quiere modificar?");
             respuesta = sc.nextLine();
             if (!esEntero(respuesta)) {
@@ -131,7 +131,8 @@ public class VistaMecanico {
         VistaVehiculo vh = new VistaVehiculo();
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
-        System.out.println("<<<-----VEHICULOS----->>>");
+        System.out.println("<<<-----LISTADO DE VEHICULOS SIN ASIGNAR----->>>");
+        vh.mostrarListaVehiculos(vehiculosCreados);
         do {
             Vehiculo v = vh.crearVehiculoVista();
             if (v == null) {
@@ -166,13 +167,14 @@ public class VistaMecanico {
     }
 
     public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
-        System.out.println("<<<<--------------- MECANICOS ------------->>>>");
+        System.out.println("<<<<--------------- MECANICOS --------------->>>>");
+        System.out.println("-------------------------------------------------");
         System.out.println("ID      NOMBRE COMPLETO       NÚMERO DE VEHICULOS");
-
+        System.out.println("--      ---------------       -------------------");
         for (Mecanico m : mecanicos) {
-
-            System.out.printf("%-7d %-20s %-10d  \n", m.getIdMecanico(), m.getNombreMecanico(), m.getVehiculos().size());
+            System.out.printf("%-7d %-30s %-10d  \n", m.getIdMecanico(), m.getNombreMecanico(), m.getVehiculos().size());
         }
+        System.out.println("-------------------------------------------------");
     }
 
     public void mostrarIdyNombreMecanicos(List<Mecanico> mecanicos) {

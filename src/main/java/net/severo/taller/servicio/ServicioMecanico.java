@@ -107,7 +107,7 @@ public class ServicioMecanico {
 
     //eliminar un mecanico al pasarle un objeto mecanico
 
-    public void eliminarMecanico(Mecanico m) throws DAOException, ServiciosException {
+    public void servicioEliminarMecanico(Mecanico m) throws DAOException, ServiciosException {
         if (!(idao.obtenerTodosMecanicos().contains(m))) {
             throw new ServiciosException("El mecánico no existe");
         }

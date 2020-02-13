@@ -6,7 +6,6 @@ import net.severo.taller.pojo.Vehiculo;
 import net.severo.taller.servicio.ServicioMecanico;
 import net.severo.taller.servicio.ServiciosException;
 import net.severo.taller.vistas.VistaMecanico;
-import net.severo.taller.vistas.VistaVehiculo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,29 +55,14 @@ public class ControladorMecanico {
         if (nombre == null) {
             return;
         }
-        //Vehiculos del mecanico
-        ArrayList<Vehiculo> vehiculosDeEsteMecanico = new ArrayList<>();
-        try {
-            vehiculosDeEsteMecanico = ServicioMecanico.getServicioMecanico().servicioObtenerTodosLosVehiculos();
-        } catch (DAOException ex) {
-            vm.mostrarError("Error en el controlador al intentar obtener los datos: " + ex.getMessage());
-            return;
-        } catch (ServiciosException ex) {
-            vm.mostrarError("Error en el controlador al intentar obtener los mecanicos:" + ex);
-            return;
-        }
-        List<Vehiculo> vehiculos = vm.pedirListaVehiculos(vehiculosDeEsteMecanico);
-        if (vehiculos == null) {
-            return;
-        }
-        Mecanico mc = new Mecanico(id, nombre, vehiculos);
+        Mecanico mc = new Mecanico(id, nombre);
         try {
             ServicioMecanico.getServicioMecanico().servicioNuevoMecanico(mc);
         } catch (DAOException ex) {
             vm.mostrarError("Error al intentar acceder a los datos: " + ex.getMessage());
 
         } catch (ServiciosException ex) {
-            vm.mostrarError("Error al intentar crear la reserva: " + ex.getMessage());
+            vm.mostrarError("Error al intentar crear el nuevo mecánico: " + ex.getMessage());
         }
 
         //aqui podemos finalizar transacción
@@ -101,7 +85,7 @@ public class ControladorMecanico {
         } catch (DAOException ex) {
             vm.mostrarError("Error al intentar obtener los datos: " + ex);
         } catch (ServiciosException ex) {
-            vm.mostrarError("Error al intentar mostrar las reservas: " + ex);
+            vm.mostrarError("Error al intentar mostrar los mecánicos: " + ex);
         }
     }
 
@@ -125,11 +109,7 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
-                        //Añadir lista de vehiculos a mecanico
-                        VistaVehiculo vv = new VistaVehiculo();
-                        ArrayList<Vehiculo> vehiculosCreados = new ArrayList<>();
-                        vehiculosCreados.add(vv.crearVehiculoVista());
-                        List<Vehiculo> vehiculos = vm.pedirListaVehiculos(vehiculosCreados);
+                        List<Vehiculo> vehiculos = vm.pedirListaVehiculos(new ArrayList<>());
                         if (vehiculos != null) {
                             ServicioMecanico.getServicioMecanico().servicioModificarListaVehiculosMecanico(codigo, vehiculos);
                         }
