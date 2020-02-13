@@ -162,6 +162,30 @@ public class ServicioMecanico {
         return contador;
     }
 
+    /*public void asignarVehiculoMecanico(Mecanico m) throws DAOException, ServiciosException{
+        // Vamos a comprobar que no existe el mecanico
+        Mecanico jPrueba = null;
+        try {
+            jPrueba = idao.obtenerMecanicoPorID(m.getIdMecanico());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        if (jPrueba != null) {
+            throw new ServicioException ("Ya existe un mecanico con ese Id");
+        }
+
+        Vehiculo e = (Vehiculo) idao.obtenerVehiculosPorMecanico(m.getIdMecanico());
+        // En esta aplicación suponemos que todos los vehiculos debe pertenecer a un mecanico
+        if (e == null) {
+            throw new ServicioException("No existe ning�n equipo con ese id.");
+        }
+        m.setVehiculos((List<Vehiculo>) e);
+
+        idao.modificarMecanico(m);
+
+
+    }*/
+
 
     //transacciones
 

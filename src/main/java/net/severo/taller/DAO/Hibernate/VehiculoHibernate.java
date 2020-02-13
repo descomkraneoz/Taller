@@ -78,7 +78,7 @@ public class VehiculoHibernate implements IVehiculo {
             return j;
 
         } catch (Exception e) {
-            throw new DAOException("Ha habido un problema al obtener el vuelo", e);
+            throw new DAOException("Ha habido un problema al obtener el vehiculo", e);
         }
     }
 
@@ -95,14 +95,10 @@ public class VehiculoHibernate implements IVehiculo {
             lista = q.list();
             for (Vehiculo j : lista) {
                 Hibernate.initialize(j.getIdVehiculo());
-                //¿Por qué hacemos esto? Es un poco mas complejo de entender
-                // y lo explicaremos en clase
+
             }
 
-            // Cerramos la sesión
-            //sesion.close();
 
-            // Devolvemos el resultado
             return lista;
         } catch (Exception e) {
             throw new DAOException("Ha habido un problema al obtener los vehiculos", e);
