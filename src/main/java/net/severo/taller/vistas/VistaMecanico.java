@@ -126,23 +126,47 @@ public class VistaMecanico {
         return respuesta;
     }
 
-    public List<Vehiculo> pedirNuevaListaVehiculos() {
-        List<Vehiculo> vehiculosCreados = new ArrayList<>();
-        VistaVehiculo vh = new VistaVehiculo();
+    public Integer pedirIdVehiculo() {
+        String respuesta;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Introduzca el id del vehiculo.");
+            int numEntero;
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                System.err.println("El id del vehiculo debe ser un número");
+            } else {
+                numEntero = Integer.parseInt(respuesta);
+                if (numEntero == 0) {
+                    //salimos
+                    return null;
+                } else if (numEntero < 0) {
+                    System.err.println("El id de vehiculo ha de ser positivo");
+                } else {
+                    return numEntero;
+                }
+            }
+
+        } while (true);
+    }
+
+    public List<Vehiculo> pedirListaVehiculos(ArrayList<Vehiculo> vehiculosCreados) {
+        List<Vehiculo> vehiculos = new ArrayList<>();
+        VistaVehiculo vv = new VistaVehiculo();
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
-        System.out.println("<<<-----LISTADO DE VEHICULOS SIN ASIGNAR----->>>");
-        vh.mostrarListaVehiculos(vehiculosCreados);
-        /*do {
-            Vehiculo v = vh.crearVehiculoVista();
-            if (v == null) {
+        System.out.println("VEHICULOS");
+        do {
+            Vehiculo p = vv.crearVehiculoVista();
+            if (p == null) {
                 return null;
             }
-            if (vehiculosCreados.contains(v)) {
+            if (vehiculosCreados.contains(p)) {
                 System.out.println("Ya existe un vehiculo con el id del nuevo y por tanto no será admitido");
                 continue;
             } else {
-                vehiculosCreados.add(v);
+                vehiculos.add(p);
+                vehiculosCreados.add(p);
             }
 
             do {
@@ -161,9 +185,11 @@ public class VistaMecanico {
                 }
                 System.out.println("Por favor,introduzca S para una respuesta afirmativa y N para una negativa");
             } while (true);
-        } while (!salir);*/
-        return vehiculosCreados;
+        } while (!salir);
+        return vehiculos;
     }
+
+
 
 
     public void mostrarListaMecanicos(List<Mecanico> mecanicos) {

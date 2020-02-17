@@ -4,9 +4,12 @@ import net.severo.taller.DAO.DAOException;
 import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
 import net.severo.taller.servicio.ServicioMecanico;
+import net.severo.taller.servicio.ServicioVehiculo;
 import net.severo.taller.servicio.ServiciosException;
 import net.severo.taller.vistas.VistaMecanico;
+import net.severo.taller.vistas.VistaVehiculo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorMecanico {
@@ -35,6 +38,9 @@ public class ControladorMecanico {
                     break;
                 case 4:
                     this.ControladorEliminarMecanico();
+                    break;
+                case 5:
+                    this.ControladorAsignarVehiculoAlMecanico();
                     break;
             }
         } while (true);
@@ -108,10 +114,21 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
-                        List<Vehiculo> vehiculos = vm.pedirNuevaListaVehiculos();
-                        if (vehiculos != null) {
-                            ServicioMecanico.getServicioMecanico().servicioModificarListaVehiculosMecanico(codigo, vehiculos);
+                        List<Vehiculo> vehiculosAsignados = new ArrayList<>();
+                        Mecanico mc = new Mecanico();
+                        try {
+                            vehiculosAsignados = ServicioMecanico.getServicioMecanico().servicioObtenerTodosLosVehiculos();
+                            mc = ServicioMecanico.getServicioMecanico().servicioObtenerMecanicoPorID(codigo);
+
+                        } catch (DAOException ex) {
+                            vm.mostrarError("Error al intentar obtener los datos: " + ex.getMessage());
+                            return;
+                        } catch (ServiciosException ex) {
+                            vm.mostrarError("Error al intentar obtener los vehiculos:" + ex);
+                            return;
                         }
+                        List<Vehiculo> vehiculos = vm.pedirListaVehiculos((ArrayList<Vehiculo>) vehiculosAsignados);
+                        mc.setVehiculos(vehiculos);
                         break;
 
                     case 3:
@@ -147,6 +164,39 @@ public class ControladorMecanico {
         } catch (ServiciosException se) {
             vm.mostrarError("Error al eliminar un mecanico: " + se.getMessage());
         }
+    }
+
+    private void ControladorAsignarVehiculoAlMecanico() {
+        try {
+            ServicioMecanico.getServicioMecanico().iniciarTransaccion();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        try {
+            new VistaVehiculo().mostrarListaVehiculos(ServicioVehiculo.getServicio().servicioObtenerVehiculos());
+            Integer codigoVehiculo = new VistaVehiculo().pedirIdVehiculo();
+            if (codigoVehiculo != 0) {
+
+            }
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
+            Integer codMec = vm.pedirIdMecanico();
+            if (codMec != 0) {
+                ServicioMecanico.getServicioMecanico().servicioAsignarVehiculosAlMecanico(codMec, codigoVehiculo);
+            }
+
+
+        } catch (DAOException dao) {
+            vm.mostrarError("Error al intentar obtener los datos: " + dao.getMessage());
+        } catch (ServiciosException se) {
+            vm.mostrarError("Error al asignar un vehiculo: " + se.getMessage());
+        }
+
+        try {
+            ServicioMecanico.getServicioMecanico().finalizarTransaccion();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

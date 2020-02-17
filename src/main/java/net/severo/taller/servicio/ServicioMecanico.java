@@ -104,6 +104,12 @@ public class ServicioMecanico {
         return totalVehiculos;
     }
 
+    public void vehiculoExiste(Vehiculo vehiculo) throws DAOException, ServiciosException {
+        if (this.servicioObtenerTodosLosVehiculos().contains(vehiculo)) {
+            throw new ServiciosException("Este vehiculo ya existe");
+        }
+    }
+
 
     //eliminar un mecanico al pasarle un objeto mecanico
 
@@ -179,30 +185,20 @@ public class ServicioMecanico {
         return mecanicos;
     }
 
-
-    /*public void asignarVehiculoMecanico(Mecanico m) throws DAOException, ServiciosException{
-        // Vamos a comprobar que no existe el mecanico
-        Mecanico jPrueba = null;
-        try {
-            jPrueba = idao.obtenerMecanicoPorID(m.getIdMecanico());
-        } catch (DAOException e) {
-            e.printStackTrace();
+    //asignar vehiculos a un mecanico
+    public void servicioAsignarVehiculosAlMecanico(int idMecanico, int idVehiculo) throws DAOException, ServiciosException {
+        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
+        Vehiculo v = (Vehiculo) idao.obtenerVehiculosPorMecanico(idVehiculo);
+        if (v == null) {
+            throw new ServiciosException("No existe ningún vehiculo con ese id.");
         }
-        if (jPrueba != null) {
-            throw new ServicioException ("Ya existe un mecanico con ese Id");
-        }
-
-        Vehiculo e = (Vehiculo) idao.obtenerVehiculosPorMecanico(m.getIdMecanico());
-        // En esta aplicación suponemos que todos los vehiculos debe pertenecer a un mecanico
-        if (e == null) {
-            throw new ServicioException("No existe ning�n equipo con ese id.");
-        }
-        m.setVehiculos((List<Vehiculo>) e);
-
+        List<Vehiculo> vehiculosCreados = new ArrayList<>();
+        m.setVehiculos(vehiculosCreados);
         idao.modificarMecanico(m);
+    }
 
 
-    }*/
+
 
 
     //transacciones
