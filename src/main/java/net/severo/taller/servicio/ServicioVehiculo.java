@@ -128,7 +128,6 @@ public class ServicioVehiculo {
     }
 
 
-
     /**
      * Transacciones
      */

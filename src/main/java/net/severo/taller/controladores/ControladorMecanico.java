@@ -7,7 +7,6 @@ import net.severo.taller.servicio.ServicioMecanico;
 import net.severo.taller.servicio.ServiciosException;
 import net.severo.taller.vistas.VistaMecanico;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorMecanico {
@@ -109,7 +108,7 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
-                        List<Vehiculo> vehiculos = vm.pedirListaVehiculos(new ArrayList<>());
+                        List<Vehiculo> vehiculos = vm.pedirNuevaListaVehiculos();
                         if (vehiculos != null) {
                             ServicioMecanico.getServicioMecanico().servicioModificarListaVehiculosMecanico(codigo, vehiculos);
                         }

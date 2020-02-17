@@ -92,10 +92,10 @@ public class ServicioMecanico {
     }
 
     public ArrayList<Vehiculo> servicioObtenerTodosLosVehiculos() throws DAOException, ServiciosException {
-        //dao.iniciarTransaccion();
+        idao.iniciarTransaccion();
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos();
         ArrayList<Vehiculo> totalVehiculos = new ArrayList<>();
-        //dao.finalizarTransaccion();
+        idao.finalizarTransaccion();
         for (Mecanico r : mecanicos) {
             for (Vehiculo p : r.getVehiculos()) {
                 totalVehiculos.add(p);
@@ -163,6 +163,22 @@ public class ServicioMecanico {
         }
         return contador;
     }
+
+    //obtener mecanicos sin vehiculo
+
+    public List<Mecanico> obtenerVehiculosSinMecanico() throws DAOException, ServiciosException {
+        List<Mecanico> mecanicos = new ArrayList<>();
+        for (Mecanico m : this.servicioObtenerTodosMecanicos()) {
+            if (m.getVehiculos().isEmpty()) {
+                mecanicos.add(m);
+            }
+        }
+        if (mecanicos.isEmpty()) {
+            throw new ServiciosException("No hay mecánicos sin vehiculo");
+        }
+        return mecanicos;
+    }
+
 
     /*public void asignarVehiculoMecanico(Mecanico m) throws DAOException, ServiciosException{
         // Vamos a comprobar que no existe el mecanico

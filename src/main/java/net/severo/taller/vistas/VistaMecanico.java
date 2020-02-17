@@ -120,20 +120,20 @@ public class VistaMecanico {
                 return null;
             }
             if (respuesta.length() > 100 || respuesta.length() < 0) {
-                System.err.println("El nomber y apellidos del mecánico ha de tener entre 1 y 100 carácteres");
+                System.err.println("El nombre y apellidos del mecánico ha de tener entre 1 y 100 carácteres");
             }
         } while (respuesta.length() > 100 || respuesta.length() < 0);
         return respuesta;
     }
 
-    public List<Vehiculo> pedirListaVehiculos(ArrayList<Vehiculo> vehiculosCreados) {
-        List<Vehiculo> vehiculos = new ArrayList<>();
+    public List<Vehiculo> pedirNuevaListaVehiculos() {
+        List<Vehiculo> vehiculosCreados = new ArrayList<>();
         VistaVehiculo vh = new VistaVehiculo();
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
         System.out.println("<<<-----LISTADO DE VEHICULOS SIN ASIGNAR----->>>");
         vh.mostrarListaVehiculos(vehiculosCreados);
-        do {
+        /*do {
             Vehiculo v = vh.crearVehiculoVista();
             if (v == null) {
                 return null;
@@ -142,7 +142,6 @@ public class VistaMecanico {
                 System.out.println("Ya existe un vehiculo con el id del nuevo y por tanto no será admitido");
                 continue;
             } else {
-                vehiculos.add(v);
                 vehiculosCreados.add(v);
             }
 
@@ -162,9 +161,10 @@ public class VistaMecanico {
                 }
                 System.out.println("Por favor,introduzca S para una respuesta afirmativa y N para una negativa");
             } while (true);
-        } while (!salir);
-        return vehiculos;
+        } while (!salir);*/
+        return vehiculosCreados;
     }
+
 
     public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
         System.out.println("<<________MECANICOS________>>");

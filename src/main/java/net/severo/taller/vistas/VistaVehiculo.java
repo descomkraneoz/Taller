@@ -186,7 +186,7 @@ public class VistaVehiculo {
     }
 
     public void mostrarUnVehiculo(Vehiculo v) {
-        System.out.println("--------------- VEHICULO SELECCIONADO -------------");
+        System.out.println("--------------- VEHICULO SELECCIONADO --------------");
         System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
         String fechaStr;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
