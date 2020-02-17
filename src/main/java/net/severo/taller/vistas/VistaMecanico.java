@@ -167,14 +167,13 @@ public class VistaMecanico {
     }
 
     public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
-        System.out.println("<<<<--------------- MECANICOS --------------->>>>");
-        System.out.println("-------------------------------------------------");
-        System.out.println("ID      NOMBRE COMPLETO       NÚMERO DE VEHICULOS");
-        System.out.println("--      ---------------       -------------------");
+        System.out.println("<<________MECANICOS________>>");
+        System.out.println("ID        NOMBRE COMPLETO    ");
+        System.out.println("---      ------------------  ");
         for (Mecanico m : mecanicos) {
-            System.out.printf("%-7d %-30s %-10d  \n", m.getIdMecanico(), m.getNombreMecanico(), m.getVehiculos().size());
+            System.out.printf("%-10d %-30s \n", m.getIdMecanico(), m.getNombreMecanico());
         }
-        System.out.println("-------------------------------------------------");
+        System.out.println("-----------------------------");
     }
 
     public void mostrarIdyNombreMecanicos(List<Mecanico> mecanicos) {

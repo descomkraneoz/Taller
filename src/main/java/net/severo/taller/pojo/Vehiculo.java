@@ -11,7 +11,7 @@ public class Vehiculo {
 
     public Vehiculo(int id, String matricula, boolean esElectrico, Date fechaMatriculacion) {
         this.idVehiculo = id;
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
         this.esElectrico = esElectrico;
         this.fechaMatriculacion = fechaMatriculacion;
     }
@@ -32,7 +32,7 @@ public class Vehiculo {
     }
 
     public void setMatricula(String matricula) {
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
     }
 
     public boolean getEsElectrico() {

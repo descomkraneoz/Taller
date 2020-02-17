@@ -55,9 +55,9 @@ public class ServicioMecanico {
         if (idao.obtenerMecanicoPorID(r.getIdMecanico()) != null) {
             throw new ServiciosException("El mecánico ya existe.");
         }
-        //idao.iniciarTransaccion();
+        idao.iniciarTransaccion();
         idao.crearMecanico(r);
-        //dao.finalizarTransaccion();
+        idao.finalizarTransaccion();
     }
 
     //obtener todos los mecanicos en una lista
@@ -111,9 +111,9 @@ public class ServicioMecanico {
         if (!(idao.obtenerTodosMecanicos().contains(m))) {
             throw new ServiciosException("El mecánico no existe");
         }
-        //idao.iniciarTransaccion();
+        idao.iniciarTransaccion();
         idao.eliminarMecanico(m.getIdMecanico());
-        //idao.finalizarTransaccion();
+        idao.finalizarTransaccion();
     }
 
     //eliminar un mecanico al pasarle un id
@@ -123,7 +123,9 @@ public class ServicioMecanico {
         if (servicioObtenerMecanicoPorID(codigo) == null) {
             throw new ServiciosException("El mecánico no existe");
         }
+        idao.iniciarTransaccion();
         idao.eliminarMecanico(codigo);
+        idao.finalizarTransaccion();
 
     }
 

@@ -14,13 +14,7 @@ public class SesionHibernate {
 
     private SesionHibernate() throws DAOException {
         try {
-            //Una sesión es como una conexión de JDBC, para poder usar hibernate debemos estar
-            //dentro de una sesión y cada sesión nos la facilita la factoría de sesiones a partir del
-            //archivo de configuración de hibernate que hemos definido
-            //crear la factoría de sesiones es un proceso costoso, y debemos de hacerlo una sola vez
-            //En este caso en el constructor, En una aplicación web deberemos usar otras opciones
 
-            //Inicializamos la factoria de sesiones
             sessionFactory = new Configuration().configure().buildSessionFactory();
             sesion = sessionFactory.openSession();
 

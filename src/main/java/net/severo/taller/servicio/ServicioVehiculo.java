@@ -43,11 +43,11 @@ public class ServicioVehiculo {
             throw new ServiciosException("El vehiculo ya existe con esa id.");
         }
 
-        //idao.iniciarTransaccion();
+        idao.iniciarTransaccion();
 
         idao.crearNuevoVehiculoDAO(v);
 
-        //idao.finalizarTransaccion();
+        idao.finalizarTransaccion();
 
     }
 
@@ -67,7 +67,9 @@ public class ServicioVehiculo {
 
     public void servicioEliminarVehiculo(int codigoVehiculo) throws DAOException, ServiciosException {
         this.servicioObtenerVehiculo(codigoVehiculo);
+        idao.iniciarTransaccion();
         idao.eliminarVehiculoDAO(codigoVehiculo);
+        idao.finalizarTransaccion();
 
     }
 
