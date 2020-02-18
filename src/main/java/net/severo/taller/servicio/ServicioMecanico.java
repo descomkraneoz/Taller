@@ -186,13 +186,13 @@ public class ServicioMecanico {
     }
 
     //asignar vehiculos a un mecanico
-    public void servicioAsignarVehiculosAlMecanico(int idMecanico, int idVehiculo) throws DAOException, ServiciosException {
-        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
-        Vehiculo v = (Vehiculo) idao.obtenerVehiculosPorMecanico(idVehiculo);
-        if (v == null) {
-            throw new ServiciosException("No existe ningún vehiculo con ese id.");
-        }
+    public void servicioAsignarVehiculosAlMecanico(int idVehiculo, int idMecanico) throws DAOException, ServiciosException {
+        Mecanico m;
+        m = this.servicioObtenerMecanicoPorID(idMecanico);
         List<Vehiculo> vehiculosCreados = new ArrayList<>();
+        Vehiculo v;
+        v = ServicioVehiculo.getServicio().servicioObtenerVehiculo(idVehiculo);
+        vehiculosCreados.add(v);
         m.setVehiculos(vehiculosCreados);
         idao.modificarMecanico(m);
     }

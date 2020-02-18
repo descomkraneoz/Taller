@@ -175,9 +175,7 @@ public class ControladorMecanico {
         try {
             new VistaVehiculo().mostrarListaVehiculos(ServicioVehiculo.getServicio().servicioObtenerVehiculos());
             Integer codigoVehiculo = new VistaVehiculo().pedirIdVehiculo();
-            if (codigoVehiculo != 0) {
 
-            }
             vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
             Integer codMec = vm.pedirIdMecanico();
             if (codMec != 0) {
