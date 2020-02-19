@@ -29,7 +29,7 @@ public class Vehiculo implements Serializable {
 
     public Vehiculo(int idVehiculo, String matricula, boolean esElectrico, Date fechaMatriculacion, Set<Mecanico> mecanicos) {
         this.idVehiculo = idVehiculo;
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
         this.esElectrico = esElectrico;
         this.fechaMatriculacion = fechaMatriculacion;
         this.mecanicos = mecanicos;
@@ -37,7 +37,7 @@ public class Vehiculo implements Serializable {
 
     public Vehiculo(int idVehiculo, String matricula, boolean esElectrico, Date fechaMatriculacion) {
         this.idVehiculo = idVehiculo;
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
         this.esElectrico = esElectrico;
         this.fechaMatriculacion = fechaMatriculacion;
     }
@@ -55,11 +55,11 @@ public class Vehiculo implements Serializable {
     }
 
     public String getMatricula() {
-        return matricula;
+        return matricula.toUpperCase();
     }
 
     public void setMatricula(String matricula) {
-        this.matricula = matricula;
+        this.matricula = matricula.toUpperCase();
     }
 
     public boolean getEsElectrico() {
