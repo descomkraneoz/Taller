@@ -17,5 +17,11 @@
         <property name="fechaMatriculacion" type="java.util.Date">
             <column name="FECHA_MATRICULACION"/>
         </property>
+        <set name="mecanicos" table="VehiculoMecanico" cascade="all" inverse="false">
+            <key>
+                <column name="idVehiculo"/>
+            </key>
+            <many-to-many column="IdMecanico" class="net.severo.taller.pojo.Mecanico"/>
+        </set>
     </class>
 </hibernate-mapping>

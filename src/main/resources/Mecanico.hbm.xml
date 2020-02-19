@@ -11,14 +11,11 @@
         <property name="nombreMecanico" type="java.lang.String">
             <column name="NOMBRE"/>
         </property>
-        <list name="vehiculos" cascade="all" inverse="false">
+        <set name="vehiculos" table="VehiculoMecanico" cascade="all" inverse="true">
             <key>
-                <column name="ID_MECANICO"/>
+                <column name="idMecanico"/>
             </key>
-            <list-index>
-                <column name="ORDEN_OBJ_LISTAS"/>
-            </list-index>
-            <one-to-many class="net.severo.taller.pojo.Vehiculo"/>
-        </list>
+            <many-to-many column="IdVehiculo" class="net.severo.taller.pojo.Vehiculo"/>
+        </set>
     </class>
 </hibernate-mapping>
