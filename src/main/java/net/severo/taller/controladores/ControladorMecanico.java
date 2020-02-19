@@ -11,6 +11,7 @@ import net.severo.taller.vistas.VistaVehiculo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ControladorMecanico {
     VistaMecanico vm = null;
@@ -128,7 +129,7 @@ public class ControladorMecanico {
                             return;
                         }
                         List<Vehiculo> vehiculos = vm.pedirListaVehiculos((ArrayList<Vehiculo>) vehiculosAsignados);
-                        mc.setVehiculos(vehiculos);
+                        mc.setVehiculos((Set<Vehiculo>) vehiculos);
                         break;
 
                     case 3:

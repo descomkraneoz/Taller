@@ -1,30 +1,57 @@
 package net.severo.taller.pojo;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class Vehiculo {
+@Entity
+@Table(name = "vehiculo")
+public class Vehiculo implements Serializable {
+    @Id
+    @Column(name = "ID_VEHICULO")
     private int idVehiculo;
+
+    @Column(name = "MATRICULA")
     private String matricula;
+
+    @Column(name = "ELECTRICO")
     private boolean esElectrico;
+
+    @Column(name = "FECHA_MATRICULACION")
     private Date fechaMatriculacion;
 
-    public Vehiculo(int id, String matricula, boolean esElectrico, Date fechaMatriculacion) {
-        this.idVehiculo = id;
-        this.matricula = matricula.toUpperCase();
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "VehiculoMecanico", joinColumns = {@JoinColumn(name = "ID_VEHICULO")}, inverseJoinColumns = {@JoinColumn(name = "ID_MECANICO")})
+    private Set<Mecanico> mecanicos = new HashSet();
+
+    public Vehiculo(int idVehiculo, String matricula, boolean esElectrico, Date fechaMatriculacion, Set<Mecanico> mecanicos) {
+        this.idVehiculo = idVehiculo;
+        this.matricula = matricula;
+        this.esElectrico = esElectrico;
+        this.fechaMatriculacion = fechaMatriculacion;
+        this.mecanicos = mecanicos;
+    }
+
+    public Vehiculo(int idVehiculo, String matricula, boolean esElectrico, Date fechaMatriculacion) {
+        this.idVehiculo = idVehiculo;
+        this.matricula = matricula;
         this.esElectrico = esElectrico;
         this.fechaMatriculacion = fechaMatriculacion;
     }
 
     public Vehiculo() {
+
     }
 
     public int getIdVehiculo() {
         return idVehiculo;
     }
 
-    public void setIdVehiculo(int id) {
-        this.idVehiculo = id;
+    public void setIdVehiculo(int idVehiculo) {
+        this.idVehiculo = idVehiculo;
     }
 
     public String getMatricula() {
@@ -32,7 +59,7 @@ public class Vehiculo {
     }
 
     public void setMatricula(String matricula) {
-        this.matricula = matricula.toUpperCase();
+        this.matricula = matricula;
     }
 
     public boolean getEsElectrico() {
@@ -51,14 +78,12 @@ public class Vehiculo {
         this.fechaMatriculacion = fechaMatriculacion;
     }
 
-    @Override
-    public String toString() {
-        return "Vehiculo{" +
-                "id=" + idVehiculo +
-                ", matricula='" + matricula + '\'' +
-                ", esElectrico=" + esElectrico +
-                ", fechaMatriculacion=" + fechaMatriculacion +
-                '}';
+    public Set<Mecanico> getMecanicos() {
+        return mecanicos;
+    }
+
+    public void setMecanicos(Set<Mecanico> mecanicos) {
+        this.mecanicos = mecanicos;
     }
 
     @Override
@@ -73,10 +98,6 @@ public class Vehiculo {
     public int hashCode() {
         return Objects.hash(getIdVehiculo());
     }
-
-
-
-
 }
 
 

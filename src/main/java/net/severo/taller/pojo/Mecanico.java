@@ -1,14 +1,26 @@
 package net.severo.taller.pojo;
 
-import java.util.List;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class Mecanico {
+@Entity
+@Table(name = "mecanico")
+public class Mecanico implements Serializable {
+
+    @Id
+    @Column(name = "ID_MECANICO")
     private int idMecanico;
-    private String nombreMecanico;
-    private List<Vehiculo> vehiculos;
 
-    public Mecanico(int idMecanico, String nombreMecanico, List<Vehiculo> vehiculos) {
+    @Column(name = "NOMBRE")
+    private String nombreMecanico;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "mecanicos")
+    private Set<Vehiculo> vehiculos = new HashSet();
+
+    public Mecanico(int idMecanico, String nombreMecanico, Set<Vehiculo> vehiculos) {
         this.idMecanico = idMecanico;
         this.nombreMecanico = nombreMecanico;
         this.vehiculos = vehiculos;
@@ -39,21 +51,12 @@ public class Mecanico {
         this.nombreMecanico = nombreMecanico;
     }
 
-    public List<Vehiculo> getVehiculos() {
+    public Set<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
-    public void setVehiculos(List<Vehiculo> vehiculos) {
+    public void setVehiculos(Set<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
-    }
-
-    @Override
-    public String toString() {
-        return "Mecanico{" +
-                "idMecanico=" + idMecanico +
-                ", nombreMecanico='" + nombreMecanico + '\'' +
-                ", vehiculos=" + vehiculos +
-                '}';
     }
 
     @Override

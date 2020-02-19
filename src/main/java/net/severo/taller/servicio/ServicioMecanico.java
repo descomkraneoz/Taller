@@ -8,6 +8,7 @@ import net.severo.taller.pojo.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ServicioMecanico {
 
@@ -146,7 +147,7 @@ public class ServicioMecanico {
     //modificar lista de vehiculos de un mecanico
     public void servicioModificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
         Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
-        m.setVehiculos(nuevaLista);
+        m.setVehiculos((Set<Vehiculo>) nuevaLista);
         idao.modificarMecanico(m);
     }
 
@@ -193,7 +194,7 @@ public class ServicioMecanico {
         Vehiculo v;
         v = ServicioVehiculo.getServicio().servicioObtenerVehiculo(idVehiculo);
         vehiculosCreados.add(v);
-        m.setVehiculos(vehiculosCreados);
+        m.setVehiculos((Set<Vehiculo>) vehiculosCreados);
         idao.modificarMecanico(m);
     }
 
