@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Set;
 
 public class MecanicoHibernate implements IMecanico {
     Transaction tx = null;
@@ -81,6 +82,47 @@ public class MecanicoHibernate implements IMecanico {
         }
     }
 
+    @Override
+    public Mecanico obtenerMecanicoPorID(int id) throws DAOException {
+        Session sesion = SesionHibernate.getInstance().getSesion();
+        try {
+
+            Mecanico j = new Mecanico();
+
+            j = (Mecanico) sesion.get(Mecanico.class, id);
+
+            return j;
+
+        } catch (Exception e) {
+            throw new DAOException("Ha habido un problema al obtener el mecánico", e);
+        }
+    }
+
+    @Override
+    public void asignarMecanicoVehiculo(Mecanico m) throws DAOException {
+        Integer codMecanico = m.getIdMecanico();
+        //Integer codVehiculo=v.getIdVehiculo();
+        try {
+            Session sesion = SesionHibernate.getInstance().getSesion();
+
+            Set<Mecanico> lista;
+
+            Query q = sesion.createQuery("from VehiculoMecanico");
+
+
+            sesion.update(m);
+
+
+        } catch (Exception e) {
+            throw new DAOException("Ha habido un problema al obtener los vehiculos", e);
+
+        }
+
+    }
+
+
+
+
 
     @Override
     public List<Mecanico> obtenerTodosMecanicos(int idVehiculo) throws DAOException {
@@ -97,21 +139,6 @@ public class MecanicoHibernate implements IMecanico {
         return null;
     }
 
-    @Override
-    public Mecanico obtenerMecanicoPorID(int id) throws DAOException {
-        Session sesion = SesionHibernate.getInstance().getSesion();
-        try {
-
-            Mecanico j = new Mecanico();
-
-            j = (Mecanico) sesion.get(Mecanico.class, id);
-
-            return j;
-
-        } catch (Exception e) {
-            throw new DAOException("Ha habido un problema al obtener el mecánico", e);
-        }
-    }
 
     @Override
     public void finalizar() throws DAOException {

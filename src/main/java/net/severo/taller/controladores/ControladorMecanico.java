@@ -41,7 +41,7 @@ public class ControladorMecanico {
                     this.ControladorEliminarMecanico();
                     break;
                 case 5:
-                    this.ControladorAsignarVehiculoAlMecanico();
+                    this.ControladorAsignarMecanicoAlVehiculo();
                     break;
             }
         } while (true);
@@ -167,7 +167,7 @@ public class ControladorMecanico {
         }
     }
 
-    private void ControladorAsignarVehiculoAlMecanico() {
+    private void ControladorAsignarMecanicoAlVehiculo() {
         try {
             ServicioMecanico.getServicioMecanico().iniciarTransaccion();
         } catch (DAOException e) {
@@ -180,7 +180,7 @@ public class ControladorMecanico {
             vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
             Integer codMec = vm.pedirIdMecanico();
             if (codMec != 0) {
-                ServicioMecanico.getServicioMecanico().servicioAsignarVehiculosAlMecanico(codMec, codigoVehiculo);
+                ServicioMecanico.getServicioMecanico().servicioAsignarMecanicoAlVehiculo(codMec, codigoVehiculo);
             }
 
 
