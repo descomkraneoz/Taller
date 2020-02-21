@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -99,29 +100,19 @@ public class MecanicoHibernate implements IMecanico {
     }
 
     @Override
-    public void asignarMecanicoVehiculo(Mecanico m) throws DAOException {
-        Integer codMecanico = m.getIdMecanico();
-        //Integer codVehiculo=v.getIdVehiculo();
-        try {
-            Session sesion = SesionHibernate.getInstance().getSesion();
+    public void asignarMecanicoVehiculo(Mecanico m, Vehiculo v) throws DAOException {
+        Session sesion = SesionHibernate.getInstance().getSesion();
 
-            Set<Mecanico> lista;
-
-            Query q = sesion.createQuery("from VehiculoMecanico");
+        Set<Mecanico> mecanicos = new HashSet<Mecanico>();
+        mecanicos.add(m);
 
 
-            sesion.update(m);
+        v.setMecanicos(mecanicos);
 
+        sesion.save(v);
 
-        } catch (Exception e) {
-            throw new DAOException("Ha habido un problema al obtener los vehiculos", e);
-
-        }
-
+        sesion.getTransaction().commit();
     }
-
-
-
 
 
     @Override

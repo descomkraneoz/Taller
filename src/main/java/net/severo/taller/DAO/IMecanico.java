@@ -19,7 +19,7 @@ public interface IMecanico {
 
     Mecanico obtenerMecanicoPorID(int id) throws DAOException;
 
-    void asignarMecanicoVehiculo(Mecanico m) throws DAOException;
+    void asignarMecanicoVehiculo(Mecanico m, Vehiculo v) throws DAOException;
 
     public void finalizar() throws DAOException; //cortar la conexion
 

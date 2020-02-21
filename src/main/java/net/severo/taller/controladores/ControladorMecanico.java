@@ -174,14 +174,17 @@ public class ControladorMecanico {
             e.printStackTrace();
         }
         try {
+            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
+            Integer codMec = vm.pedirIdMecanico();
+
+
             new VistaVehiculo().mostrarListaVehiculos(ServicioVehiculo.getServicio().servicioObtenerVehiculos());
             Integer codigoVehiculo = new VistaVehiculo().pedirIdVehiculo();
 
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos());
-            Integer codMec = vm.pedirIdMecanico();
-            if (codMec != 0) {
-                ServicioMecanico.getServicioMecanico().servicioAsignarMecanicoAlVehiculo(codMec, codigoVehiculo);
-            }
+            ServicioMecanico.getServicioMecanico().servicioAsignarMecanicoAlVehiculo(codMec, codigoVehiculo);
+
+
+
 
 
         } catch (DAOException dao) {

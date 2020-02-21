@@ -9,7 +9,6 @@ import net.severo.taller.pojo.Vehiculo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class ServicioMecanico {
 
@@ -188,15 +187,16 @@ public class ServicioMecanico {
     }
 
     //asignar vehiculos a un mecanico
-    public void servicioAsignarMecanicoAlVehiculo(int idVehiculo, int idMecanico) throws DAOException, ServiciosException {
-        Mecanico m;
-        m = this.servicioObtenerMecanicoPorID(idMecanico);
-        Set<Vehiculo> vehiculosCreados = new TreeSet<>();
+    public void servicioAsignarMecanicoAlVehiculo(int idMecanico, int idVehiculo) throws DAOException, ServiciosException {
+
         Vehiculo v;
         v = ServicioVehiculo.getServicio().servicioObtenerVehiculo(idVehiculo);
-        vehiculosCreados.add(v);
-        m.setVehiculos(vehiculosCreados);
-        idao.asignarMecanicoVehiculo(m);
+
+        Mecanico m;
+
+        m = this.servicioObtenerMecanicoPorID(idMecanico);
+
+        idao.asignarMecanicoVehiculo(m, v);
     }
 
 
