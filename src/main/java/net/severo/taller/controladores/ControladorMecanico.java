@@ -183,14 +183,10 @@ public class ControladorMecanico {
 
             ServicioMecanico.getServicioMecanico().servicioAsignarMecanicoAlVehiculo(codMec, codigoVehiculo);
 
-
-
-
-
         } catch (DAOException dao) {
-            vm.mostrarError("Error al intentar obtener los datos: " + dao.getMessage());
+            vm.mostrarError("Error en el controlador al intentar obtener los datos: " + dao.getMessage());
         } catch (ServiciosException se) {
-            vm.mostrarError("Error al asignar un vehiculo: " + se.getMessage());
+            vm.mostrarError("Error en el controlador al asignar un vehiculo: " + se.getMessage());
         }
 
         try {

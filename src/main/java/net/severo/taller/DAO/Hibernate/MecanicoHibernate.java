@@ -102,16 +102,23 @@ public class MecanicoHibernate implements IMecanico {
     @Override
     public void asignarMecanicoVehiculo(Mecanico m, Vehiculo v) throws DAOException {
         Session sesion = SesionHibernate.getInstance().getSesion();
+        try {
 
-        Set<Mecanico> mecanicos = new HashSet<Mecanico>();
-        mecanicos.add(m);
+            Set<Mecanico> mecanicos = new HashSet<Mecanico>();
+            mecanicos.add(m);
+
+            v.setMecanicos(mecanicos);
+            sesion.save(v);
+
+            sesion.getTransaction().commit();
+
+        } catch (Exception e) {
+            throw new DAOException("Ha habido un problema al asignar el mecánico al vehículo", e);
+        }
 
 
-        v.setMecanicos(mecanicos);
 
-        sesion.save(v);
 
-        sesion.getTransaction().commit();
     }
 
 

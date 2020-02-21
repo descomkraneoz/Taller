@@ -173,7 +173,7 @@ public class ServicioMecanico {
 
     //obtener mecanicos sin vehiculo
 
-    public List<Mecanico> obtenerVehiculosSinMecanico() throws DAOException, ServiciosException {
+    public List<Mecanico> obtenerMecanicosSinVehiculo() throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = new ArrayList<>();
         for (Mecanico m : this.servicioObtenerTodosMecanicos()) {
             if (m.getVehiculos().isEmpty()) {
