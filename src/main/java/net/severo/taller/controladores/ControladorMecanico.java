@@ -184,6 +184,12 @@ public class ControladorMecanico {
             vm.mostrarError("Error en el controlador al asignar un vehiculo: " + se.getMessage());
         }
 
+        try {
+            ServicioMecanico.getServicioMecanico().finalizarTransaccion();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
