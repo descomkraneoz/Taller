@@ -2,16 +2,11 @@ package net.severo.taller.controladores;
 
 import net.severo.taller.DAO.DAOException;
 import net.severo.taller.pojo.Mecanico;
-import net.severo.taller.pojo.Vehiculo;
 import net.severo.taller.servicio.ServicioMecanico;
 import net.severo.taller.servicio.ServicioVehiculo;
 import net.severo.taller.servicio.ServiciosException;
 import net.severo.taller.vistas.VistaMecanico;
 import net.severo.taller.vistas.VistaVehiculo;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ControladorMecanico {
     VistaMecanico vm = null;
@@ -115,7 +110,7 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
-                        List<Vehiculo> vehiculosAsignados = new ArrayList<>();
+                        /*List<Vehiculo> vehiculosAsignados = new ArrayList<>();
                         Mecanico mc = new Mecanico();
                         try {
                             vehiculosAsignados = ServicioMecanico.getServicioMecanico().servicioObtenerTodosLosVehiculos();
@@ -129,7 +124,7 @@ public class ControladorMecanico {
                             return;
                         }
                         List<Vehiculo> vehiculos = vm.pedirListaVehiculos((ArrayList<Vehiculo>) vehiculosAsignados);
-                        mc.setVehiculos((Set<Vehiculo>) vehiculos);
+                        mc.setVehiculos((Set<Vehiculo>) vehiculos);*/
                         break;
 
                     case 3:
@@ -187,12 +182,6 @@ public class ControladorMecanico {
             vm.mostrarError("Error en el controlador al intentar obtener los datos: " + dao.getMessage());
         } catch (ServiciosException se) {
             vm.mostrarError("Error en el controlador al asignar un vehiculo: " + se.getMessage());
-        }
-
-        try {
-            ServicioMecanico.getServicioMecanico().finalizarTransaccion();
-        } catch (DAOException e) {
-            e.printStackTrace();
         }
 
     }

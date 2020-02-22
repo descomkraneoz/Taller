@@ -78,7 +78,7 @@ public class MecanicoHibernate implements IMecanico {
 
             return lista;
         } catch (Exception e) {
-            throw new DAOException("Ha habido un problema al obtener los vehiculos", e);
+            throw new DAOException("Ha habido un problema al obtener los mecánicos", e);
 
         }
     }
@@ -123,14 +123,10 @@ public class MecanicoHibernate implements IMecanico {
 
 
     @Override
-    public List<Mecanico> obtenerTodosMecanicos(int idVehiculo) throws DAOException {
+    public List<Mecanico> obtenerTodosMecanicos(int idMecanico) throws DAOException {
         return null;
     }
 
-    @Override
-    public List<Vehiculo> obtenerVehiculosPorMecanico() throws DAOException {
-        return null;
-    }
 
     @Override
     public List<Vehiculo> obtenerVehiculosPorMecanico(int idMecanico) throws DAOException {

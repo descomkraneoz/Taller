@@ -68,7 +68,7 @@ public class VistaMecanico {
         String respuesta;
         int opcion;
         do {
-            System.out.println(" 1.-Nombre \n 2.-Nueva Lista vehiculos \n 3.-Añadir vehiculo a la lista");
+            System.out.println(" 1.-Nombre \n 2.-(*******) \n 3.-(*******)");
             System.out.println("¿Qué quiere modificar?");
             respuesta = sc.nextLine();
             if (!esEntero(respuesta)) {

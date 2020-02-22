@@ -3,6 +3,7 @@ package net.severo.taller.servicio;
 import net.severo.taller.DAO.DAOException;
 import net.severo.taller.DAO.Hibernate.MecanicoHibernate;
 import net.severo.taller.DAO.IMecanico;
+import net.severo.taller.DAO.JDBC.MecanicoJDBC;
 import net.severo.taller.pojo.Mecanico;
 import net.severo.taller.pojo.Vehiculo;
 
@@ -25,7 +26,7 @@ public class ServicioMecanico {
     public void elegirSistemaAlmacenamiento(int opcion) throws DAOException {
 
         if (opcion == 1) {
-            //idao = new ReservasJDBCDAO();
+            idao = new MecanicoJDBC();
         }
         if (opcion == 2) {
 
@@ -78,19 +79,11 @@ public class ServicioMecanico {
         ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
         List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
         if (v.isEmpty()) {
-            throw new ServiciosException("No hay ningun vehiculo para ese id de mecánico");
+            throw new ServiciosException("No hay ningun vehiculo en la lista para ese mecánico");
         }
         return v;
     }
 
-    public List<Vehiculo> obtenerListaVehiculos(int idMecanico) throws DAOException, ServiciosException {
-        ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
-        List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
-        if (v.isEmpty()) {
-            throw new ServiciosException("No hay ningun vehiculo para ese id de mecánico");
-        }
-        return v;
-    }
 
     public ArrayList<Vehiculo> servicioObtenerTodosLosVehiculos() throws DAOException, ServiciosException {
         idao.iniciarTransaccion();
@@ -154,7 +147,7 @@ public class ServicioMecanico {
     public List<Mecanico> servicioObtenerListaMecanicosPorId(int id) throws DAOException, ServiciosException {
         List<Mecanico> mecanicos = idao.obtenerTodosMecanicos(id);
         if (mecanicos.isEmpty()) {
-            throw new ServiciosException("No hay ningun mecanico con ese id de vehiculo");
+            throw new ServiciosException("No hay ningun mecanico en la lista con ese id");
         }
         return mecanicos;
     }

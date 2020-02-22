@@ -91,7 +91,6 @@ public class VehiculoHibernate implements IVehiculo {
 
             }
 
-
             return lista;
         } catch (Exception e) {
             throw new DAOException("Ha habido un problema al obtener los vehiculos", e);

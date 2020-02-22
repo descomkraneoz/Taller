@@ -3,6 +3,7 @@ package net.severo.taller.servicio;
 import net.severo.taller.DAO.DAOException;
 import net.severo.taller.DAO.Hibernate.VehiculoHibernate;
 import net.severo.taller.DAO.IVehiculo;
+import net.severo.taller.DAO.JDBC.VehiculoJDBC;
 import net.severo.taller.pojo.Vehiculo;
 
 import java.util.Date;
@@ -24,7 +25,7 @@ public class ServicioVehiculo {
     public void elegirSistemaAlmacenamiento(int opcion) throws DAOException {
 
         if (opcion == 1) {
-            //idao = new VehiculoJDBC();
+            idao = new VehiculoJDBC();
         }
         if (opcion == 2) {
 

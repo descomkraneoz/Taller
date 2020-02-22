@@ -13,7 +13,6 @@ public interface IMecanico {
 
     List<Mecanico> obtenerTodosMecanicos(int idMecanico) throws DAOException;
 
-    List<Vehiculo> obtenerVehiculosPorMecanico() throws DAOException;
 
     List<Vehiculo> obtenerVehiculosPorMecanico(int idVehiculo) throws DAOException;
 
@@ -21,9 +20,9 @@ public interface IMecanico {
 
     void asignarMecanicoVehiculo(Mecanico m, Vehiculo v) throws DAOException;
 
-    public void finalizar() throws DAOException; //cortar la conexion
+    void finalizar() throws DAOException; //cortar la conexion
 
-    public void iniciarTransaccion() throws DAOException;
+    void iniciarTransaccion() throws DAOException;
 
-    public void finalizarTransaccion() throws DAOException;
+    void finalizarTransaccion() throws DAOException;
 }
