@@ -9,9 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MecanicoHibernate implements IMecanico {
     Transaction tx = null;
@@ -50,13 +48,18 @@ public class MecanicoHibernate implements IMecanico {
         try {
             Mecanico j = this.obtenerMecanicoPorID(idMecanico);
             Session sesion = SesionHibernate.getInstance().getSesion();
+           /* Query q = sesion.createSQLQuery("delete from vehiculomecanico where IdMecanico = :ID");
+            q.setParameter("ID",idMecanico);
+            q.executeUpdate();*/
+            Query query = sesion.createQuery("delete Mecanico where ID_MECANICO = :ID");
+            query.setParameter("ID", idMecanico);
 
-
-            sesion.delete(j);
-
+            //sesion.delete(j);
+            int result = query.executeUpdate();
 
         } catch (Exception e) {
-            throw new DAOException("Ha habido un problema al eliminar el mecánico", e);
+            //throw new DAOException("Ha habido un problema al eliminar el mecánico", e);
+            e.printStackTrace();
         }
 
 
@@ -104,21 +107,14 @@ public class MecanicoHibernate implements IMecanico {
         Session sesion = SesionHibernate.getInstance().getSesion();
         try {
 
-            Set<Mecanico> mecanicos = new HashSet<Mecanico>();
-            mecanicos.add(m);
-
-            v.setMecanicos(mecanicos);
+            m.getVehiculos().add(v);
+            v.getMecanicos().add(m);
             sesion.save(v);
-
-            sesion.getTransaction().commit();
+            sesion.save(m);
 
         } catch (Exception e) {
             throw new DAOException("Ha habido un problema al asignar el mecánico al vehículo", e);
         }
-
-
-
-
     }
 
 

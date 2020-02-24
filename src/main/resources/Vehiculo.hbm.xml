@@ -17,7 +17,7 @@
         <property name="fechaMatriculacion" type="java.util.Date">
             <column name="FECHA_MATRICULACION"/>
         </property>
-        <set name="mecanicos" table="VehiculoMecanico" cascade="all" inverse="false">
+        <set name="mecanicos" table="VehiculoMecanico" cascade="none" inverse="false">
             <key>
                 <column name="idVehiculo"/>
             </key>

@@ -68,9 +68,9 @@ public class ServicioVehiculo {
 
     public void servicioEliminarVehiculo(int codigoVehiculo) throws DAOException, ServiciosException {
         this.servicioObtenerVehiculo(codigoVehiculo);
-        idao.iniciarTransaccion();
+        //idao.iniciarTransaccion();
         idao.eliminarVehiculoDAO(codigoVehiculo);
-        idao.finalizarTransaccion();
+        //idao.finalizarTransaccion();
 
     }
 

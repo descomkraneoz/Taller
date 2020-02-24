@@ -1,5 +1,6 @@
 package net.severo.taller.pojo;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,7 +18,24 @@ public class Mecanico implements Serializable {
     @Column(name = "NOMBRE")
     private String nombreMecanico;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "mecanicos")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    },
+            targetEntity = Vehiculo.class)
+    @JoinTable(name = "vehiculomecanico",
+            inverseJoinColumns = @JoinColumn(name = "IdVehiculo",
+                    nullable = false,
+                    updatable = false),
+            joinColumns = @JoinColumn(name = "IdMecanico",
+                    nullable = false,
+                    updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Vehiculo> vehiculos = new HashSet();
 
     public Mecanico(int idMecanico, String nombreMecanico, Set<Vehiculo> vehiculos) {

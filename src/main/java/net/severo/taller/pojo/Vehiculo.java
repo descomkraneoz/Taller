@@ -1,5 +1,6 @@
 package net.severo.taller.pojo;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -23,8 +24,24 @@ public class Vehiculo implements Serializable {
     @Column(name = "FECHA_MATRICULACION")
     private Date fechaMatriculacion;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "VehiculoMecanico", joinColumns = {@JoinColumn(name = "ID_VEHICULO")}, inverseJoinColumns = {@JoinColumn(name = "ID_MECANICO")})
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    },
+            targetEntity = Vehiculo.class)
+    @JoinTable(name = "vehiculomecanico",
+            inverseJoinColumns = @JoinColumn(name = "IdVehiculo",
+                    nullable = false,
+                    updatable = false),
+            joinColumns = @JoinColumn(name = "IdMecanico",
+                    nullable = false,
+                    updatable = false),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT))
     private Set<Mecanico> mecanicos = new HashSet();
 
     public Vehiculo(int idVehiculo, String matricula, boolean esElectrico, Date fechaMatriculacion, Set<Mecanico> mecanicos) {

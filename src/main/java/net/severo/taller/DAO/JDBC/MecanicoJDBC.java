@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MecanicoJDBC implements IMecanico {
 
@@ -204,12 +206,21 @@ public class MecanicoJDBC implements IMecanico {
     public void asignarMecanicoVehiculo(Mecanico m, Vehiculo v) throws DAOException {
         Connection conn = null;
         PreparedStatement ps = null;
+        Set<Vehiculo> vehiculos = new HashSet<>();
+
         try {
             conn = ConexionJDBC.getInstance().getConnection();
 
             ps = conn.prepareStatement(asignarMecanico);
             ps.setInt(1, m.getIdMecanico());
             ps.setInt(2, v.getIdVehiculo());
+
+            vehiculos.add(v);
+
+            //m.setVehiculos(vehiculos);
+            //v.setMecanicos((Set<Mecanico>) m);
+
+
 
 
             @SuppressWarnings("unused")
