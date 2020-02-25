@@ -22,7 +22,10 @@ public class MecanicoJDBC implements IMecanico {
     static String borrarMecanico = "DELETE FROM mecanico WHERE idMecanico=?;";
     static String modificarMecanico = "UPDATE FROM mecanico WHERE idMecanico=?;";
 
+    static String trampaParaOsos = "SET FOREIGN_KEY_CHECKS=0";
+
     static String asignarMecanico = "INSERT INTO vehiculomecanico(idMecanico,idVehiculo) VALUES (?,?);";
+    static String borrarMecanicoVehiculo = "DELETE FROM vehiculomecanico WHERE idMecanico = ?;";
 
     public MecanicoJDBC() throws DAOException {
 
@@ -99,16 +102,22 @@ public class MecanicoJDBC implements IMecanico {
         PreparedStatement ps = null;
 
         try {
+            conn = ConexionJDBC.getInstance().getConnection();
 
+
+            //ps = conn.prepareStatement(borrarMecanicoVehiculo);
+            //ps.setInt(1, idMecanico);
+            //ps = conn.prepareStatement(trampaParaOsos);
 
             ps = conn.prepareStatement(borrarMecanico);
             ps.setInt(1, idMecanico);
 
-            ps.executeUpdate();
+            int afectadas = ps.executeUpdate();
 
 
         } catch (Exception ex) {
-            throw new DAOException("Ha habido un problema al eliminar el mecánico de la base de datos: ", ex);
+            //throw new DAOException("Ha habido un problema al eliminar el mecánico de la base de datos: ", ex);
+            ex.printStackTrace();
         } finally {
             try {
                 ps.close();
@@ -211,17 +220,12 @@ public class MecanicoJDBC implements IMecanico {
         try {
             conn = ConexionJDBC.getInstance().getConnection();
 
+            ps = conn.prepareStatement(trampaParaOsos);
+
             ps = conn.prepareStatement(asignarMecanico);
             ps.setInt(1, m.getIdMecanico());
             ps.setInt(2, v.getIdVehiculo());
-
             vehiculos.add(v);
-
-            //m.setVehiculos(vehiculos);
-            //v.setMecanicos((Set<Mecanico>) m);
-
-
-
 
             @SuppressWarnings("unused")
             int afectadas = ps.executeUpdate();
@@ -270,7 +274,7 @@ public class MecanicoJDBC implements IMecanico {
         try {
             ConexionJDBC.getInstance().getConnection().setAutoCommit(false); //deja en espera a la base de datos para que no haga comit
         } catch (SQLException ex) {
-            throw new DAOException("Error al inicair la transaccion", ex);
+            throw new DAOException("Error al iniciar la transaccion", ex);
         }
 
     }

@@ -123,9 +123,9 @@ public class ServicioMecanico {
         if (servicioObtenerMecanicoPorID(codigo) == null) {
             throw new ServiciosException("El mecánico no existe");
         }
-        idao.iniciarTransaccion();
+
         idao.eliminarMecanico(codigo);
-        idao.finalizarTransaccion();
+
 
     }
 
