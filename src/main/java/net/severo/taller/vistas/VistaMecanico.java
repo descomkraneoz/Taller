@@ -5,7 +5,6 @@ import net.severo.taller.pojo.Vehiculo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +43,7 @@ public class VistaMecanico {
 
     public int menuPrincipal() {
         Scanner sc = new Scanner(System.in);
-        String menu = "  1. Nuevo Mecánico. \n 2. Ver Mecánicos \n 3. Modificar Mecánico \n 4. Eliminar Mecánico. \n 5. Asignar Vehiculo a Mecánico. \n 0. Salir \n ¿Que quiere hacer?";
+        String menu = "  1. Nuevo Mecánico. \n 2. Ver Mecánicos \n 3. Modificar Mecánico \n 4. Eliminar Mecánico. \n 5. Asignar Vehiculo a Mecánico. \n 6. Mostrar Mecánico y Matricula. \n 0. Salir \n ¿Que quiere hacer?";
 
         int opcion = -1; //opcio -1 indica opcion incorrecta
         while (opcion == -1) {
@@ -55,8 +54,8 @@ public class VistaMecanico {
             } else {
                 opcion = Integer.parseInt(entrada);
             }
-            if (opcion > 5 || opcion < 0) {
-                System.out.println("Opción no valida, elija una opción del 1-5 o 0 para Salir");
+            if (opcion > 6 || opcion < 0) {
+                System.out.println("Opción no valida, elija una opción del 1-6 o 0 para Salir");
                 opcion = -1;
             }
         }
@@ -150,7 +149,47 @@ public class VistaMecanico {
         } while (true);
     }
 
-    public List<Vehiculo> pedirListaVehiculos(ArrayList<Vehiculo> vehiculosCreados) {
+    public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
+        System.out.println();
+        System.out.println("----------LISTA DE MECANICOS-----------");
+        System.out.println();
+        System.out.println("ID        NOMBRE COMPLETO    ");
+        System.out.println("---      ------------------  ");
+        for (Mecanico m : mecanicos) {
+            System.out.printf("%-10d %-30s \n", m.getIdMecanico(), m.getNombreMecanico());
+        }
+        System.out.println("---------------------------------------");
+    }
+
+    public void mostrarNombreMecanicoYMatriculaVehiculo(List<Mecanico> mecanicos, List<Vehiculo> vehiculos) {
+        System.out.println();
+        System.out.println("----------LISTA DE MECANICOS-----------");
+        System.out.println();
+        System.out.println("NOMBRE COMPLETO       MATRICULA_VEHICULO");
+        System.out.println("------------------    ------------------");
+        for (Mecanico m : mecanicos) {
+            for (Vehiculo v : vehiculos) {
+                System.out.printf("%-30s %-30s \n", m.getNombreMecanico(), v.getMatricula());
+            }
+        }
+        System.out.println("---------------------------------------");
+    }
+
+    public void mostrarError(String mensaje) {
+        System.err.println(mensaje);
+    }
+
+
+}
+
+/**
+ * **************************************** FIN ***********************************************************************
+ * <p>
+ * EL CODIGO DE ABAJO SOLO SON PRUEBAS
+ */
+
+
+/*public List<Vehiculo> pedirListaVehiculos(ArrayList<Vehiculo> vehiculosCreados) {
         List<Vehiculo> vehiculos = new ArrayList<>();
         VistaVehiculo vv = new VistaVehiculo();
         Scanner sc = new Scanner(System.in);
@@ -187,33 +226,5 @@ public class VistaMecanico {
             } while (true);
         } while (!salir);
         return vehiculos;
-    }
+    }*/
 
-
-
-
-    public void mostrarListaMecanicos(List<Mecanico> mecanicos) {
-        System.out.println("<<________MECANICOS________>>");
-        System.out.println("ID        NOMBRE COMPLETO    ");
-        System.out.println("---      ------------------  ");
-        for (Mecanico m : mecanicos) {
-            System.out.printf("%-10d %-30s \n", m.getIdMecanico(), m.getNombreMecanico());
-        }
-        System.out.println("-----------------------------");
-    }
-
-    public void mostrarIdyNombreMecanicos(List<Mecanico> mecanicos) {
-        System.out.println("Id de todos los mecanicos:");
-        String salida = "";
-        for (Mecanico p : mecanicos) {
-            salida += " " + p.getIdMecanico() + " :" + p.getNombreMecanico();
-        }
-        System.out.println(salida);
-    }
-
-    public void mostrarError(String mensaje) {
-        System.err.println(mensaje);
-    }
-
-
-}

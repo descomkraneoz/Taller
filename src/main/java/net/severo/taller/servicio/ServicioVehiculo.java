@@ -84,25 +84,6 @@ public class ServicioVehiculo {
         return vehiculos;
     }
 
-    //devuelve una lista con los vehiculos a partir de la fecha de matriculación de estos
-
-    public List<Vehiculo> servicioObtenerVehiculosFechaMatriculacion(Date fecha) throws DAOException, ServiciosException {
-        List<Vehiculo> vehiculos = idao.obtenerVehiculosPorFechaMatriculacion(fecha);
-        if (vehiculos.isEmpty()) {
-            throw new ServiciosException("No hay ningún vehiculo con esa fecha de matriculación");
-        }
-        return vehiculos;
-    }
-
-    //devuelve una lista con los vehiculos electricos
-
-    public List<Vehiculo> servicioObtenerVehiculosElectricos(boolean esElectrico) throws DAOException, ServiciosException {
-        List<Vehiculo> vehiculos = idao.obtenerTodosVehiculosElectricos(esElectrico);
-        if (vehiculos.isEmpty()) {
-            throw new ServiciosException("No hay ningún vehiculo eléctrico");
-        }
-        return vehiculos;
-    }
 
     //modifica la matricula de un vehiculo
 
@@ -153,3 +134,30 @@ public class ServicioVehiculo {
      */
 
 }
+
+/**
+ * ***************************************************** FIN DE CODIGO ******************************************************
+ * <p>
+ * AQUI ABAJO VAN LAS PRUEBAS
+ */
+
+//devuelve una lista con los vehiculos a partir de la fecha de matriculación de estos
+
+/*public List<Vehiculo> servicioObtenerVehiculosFechaMatriculacion(Date fecha) throws DAOException, ServiciosException {
+    List<Vehiculo> vehiculos = idao.obtenerVehiculosPorFechaMatriculacion(fecha);
+    if (vehiculos.isEmpty()) {
+        throw new ServiciosException("No hay ningún vehiculo con esa fecha de matriculación");
+    }
+    return vehiculos;
+}*/
+
+//devuelve una lista con los vehiculos electricos
+
+    /*public List<Vehiculo> servicioObtenerVehiculosElectricos(boolean esElectrico) throws DAOException, ServiciosException {
+        List<Vehiculo> vehiculos = idao.obtenerTodosVehiculosElectricos(esElectrico);
+        if (vehiculos.isEmpty()) {
+            throw new ServiciosException("No hay ningún vehiculo eléctrico");
+        }
+        return vehiculos;
+    }*/
+

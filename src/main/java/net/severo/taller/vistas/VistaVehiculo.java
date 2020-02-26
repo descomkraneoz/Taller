@@ -164,37 +164,6 @@ public class VistaVehiculo {
 
     }
 
-    public Vehiculo crearVehiculoVista() {
-        Integer id = this.pedirIdVehiculo();
-        if (id == null) {
-            return null;
-        }
-        String matricula = this.pedirMatricula();
-        if (matricula == null) {
-            return null;
-        }
-        Boolean esElectrico = this.pedirEsElectrico();
-        if (esElectrico == null) {
-            return null;
-        }
-        Date fechaMatriculacion = this.pedirFechaMatriculacion();
-        new SimpleDateFormat("dd/MM/yyyy").format(fechaMatriculacion);
-        if (fechaMatriculacion == null) {
-            return null;
-        }
-        return new Vehiculo(id, matricula, esElectrico, fechaMatriculacion);
-    }
-
-    public void mostrarUnVehiculo(Vehiculo v) {
-        System.out.println("--------------- VEHICULO SELECCIONADO --------------");
-        System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
-        String fechaStr;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        fechaStr = sdf.format(v.getFechaMatriculacion());
-        System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
-
-    }
-
     public void mostrarListaVehiculos(List<Vehiculo> vehiculos) {
         System.out.println("------------------ LISTA DE VEHICULOS -----------------------");
         System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
@@ -213,3 +182,40 @@ public class VistaVehiculo {
     }
 
 }
+
+/**
+ * ************************************** FIN DE CODIGO ******************************************************************
+ * <p>
+ * CODIGO DE PRUEBAS AQUI ABAJO
+ */
+
+    /*public Vehiculo crearVehiculoVista() {
+        Integer id = this.pedirIdVehiculo();
+            if (id == null) {
+            return null;
+    }
+    String matricula = this.pedirMatricula();
+    if (matricula == null) {
+        return null;
+    }
+    Boolean esElectrico = this.pedirEsElectrico();
+    if (esElectrico == null) {
+        return null;
+    }
+    Date fechaMatriculacion = this.pedirFechaMatriculacion();
+    new SimpleDateFormat("dd/MM/yyyy").format(fechaMatriculacion);
+    if (fechaMatriculacion == null) {
+        return null;
+    }
+    return new Vehiculo(id, matricula, esElectrico, fechaMatriculacion);
+    }*/
+
+    /*public void mostrarUnVehiculo(Vehiculo v) {
+        System.out.println("--------------- VEHICULO SELECCIONADO --------------");
+        System.out.println("CÓDIGO   MATRICULA   ELECTRICO   FECHA MATRICULACIÓN");
+        String fechaStr;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        fechaStr = sdf.format(v.getFechaMatriculacion());
+        System.out.printf("%-8s %-10s %-10s %-14s \n", v.getIdVehiculo(), v.getMatricula(), v.getEsElectrico() ? "Sí" : "No", fechaStr);
+
+    }*/

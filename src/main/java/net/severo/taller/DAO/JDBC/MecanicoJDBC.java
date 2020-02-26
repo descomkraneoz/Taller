@@ -27,6 +27,7 @@ public class MecanicoJDBC implements IMecanico {
     static String asignarMecanico = "INSERT INTO vehiculomecanico(idMecanico,idVehiculo) VALUES (?,?);";
     static String borrarMecanicoVehiculo = "DELETE FROM vehiculomecanico WHERE idMecanico = ?;";
 
+
     public MecanicoJDBC() throws DAOException {
 
         //acedemos al singleton ahora por si hay fallos que salten aqui
@@ -116,8 +117,8 @@ public class MecanicoJDBC implements IMecanico {
 
 
         } catch (Exception ex) {
-            //throw new DAOException("Ha habido un problema al eliminar el mecánico de la base de datos: ", ex);
-            ex.printStackTrace();
+            throw new DAOException("Ha habido un problema al eliminar el mecánico de la base de datos: ", ex);
+            //ex.printStackTrace();
         } finally {
             try {
                 ps.close();
@@ -243,9 +244,9 @@ public class MecanicoJDBC implements IMecanico {
                 throw new DAOException("Error al cerrar la sentencia", sqlex);
             }
         }
-
-
     }
+
+
 
 
     @Override
@@ -293,3 +294,16 @@ public class MecanicoJDBC implements IMecanico {
 
     }
 }
+
+/**
+ * ***********************************************FIN DEL CODIGO ***************************************************
+ * <p>
+ * LO DE ABAJO SON PRUEBAS
+ */
+
+/*static  String JoinMecanico= "SELECT a.nombreMecanico, b.matricula matricula_vehiculo \n" +
+            "FROM vehiculomecanico c \n" +
+            "RIGTH JOIN mecanico a \n" +
+            "ON c.idMecanico= a.idMecanico \n" +
+            "RIGTH JOIN vehiculo b\n" +
+            "ON c.idVehiculo = b.idVehiculo";*/

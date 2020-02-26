@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.Date;
 import java.util.List;
 
 public class VehiculoHibernate implements IVehiculo {
@@ -96,16 +95,6 @@ public class VehiculoHibernate implements IVehiculo {
             throw new DAOException("Ha habido un problema al obtener los vehiculos", e);
 
         }
-    }
-
-    @Override
-    public List<Vehiculo> obtenerVehiculosPorFechaMatriculacion(Date fechaMatriculacion) throws DAOException {
-        return null;
-    }
-
-    @Override
-    public List<Vehiculo> obtenerTodosVehiculosElectricos(boolean esElectrico) throws DAOException {
-        return null;
     }
 
     @Override

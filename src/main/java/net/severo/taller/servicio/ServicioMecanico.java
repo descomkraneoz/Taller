@@ -9,7 +9,7 @@ import net.severo.taller.pojo.Vehiculo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 public class ServicioMecanico {
 
@@ -73,17 +73,6 @@ public class ServicioMecanico {
         return mecanicos;
     }
 
-    //obtener un listado de vehiculos al pasarle una id de mecanico
-
-    public List<Vehiculo> obtenerListaVehiculosAPartirIdMecanico(int idMecanico) throws DAOException, ServiciosException {
-        ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
-        List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
-        if (v.isEmpty()) {
-            throw new ServiciosException("No hay ningun vehiculo en la lista para ese mecánico");
-        }
-        return v;
-    }
-
 
     public ArrayList<Vehiculo> servicioObtenerTodosLosVehiculos() throws DAOException, ServiciosException {
         idao.iniciarTransaccion();
@@ -98,23 +87,6 @@ public class ServicioMecanico {
         return totalVehiculos;
     }
 
-    public void vehiculoExiste(Vehiculo vehiculo) throws DAOException, ServiciosException {
-        if (this.servicioObtenerTodosLosVehiculos().contains(vehiculo)) {
-            throw new ServiciosException("Este vehiculo ya existe");
-        }
-    }
-
-
-    //eliminar un mecanico al pasarle un objeto mecanico
-
-    public void servicioEliminarMecanico(Mecanico m) throws DAOException, ServiciosException {
-        if (!(idao.obtenerTodosMecanicos().contains(m))) {
-            throw new ServiciosException("El mecánico no existe");
-        }
-        idao.iniciarTransaccion();
-        idao.eliminarMecanico(m.getIdMecanico());
-        idao.finalizarTransaccion();
-    }
 
     //eliminar un mecanico al pasarle un id
 
@@ -137,48 +109,6 @@ public class ServicioMecanico {
     }
 
 
-    //modificar lista de vehiculos de un mecanico
-    public void servicioModificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
-        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
-        m.setVehiculos((Set<Vehiculo>) nuevaLista);
-        idao.modificarMecanico(m);
-    }
-
-    public List<Mecanico> servicioObtenerListaMecanicosPorId(int id) throws DAOException, ServiciosException {
-        List<Mecanico> mecanicos = idao.obtenerTodosMecanicos(id);
-        if (mecanicos.isEmpty()) {
-            throw new ServiciosException("No hay ningun mecanico en la lista con ese id");
-        }
-        return mecanicos;
-    }
-
-    public int obtenerNumeroDeVehiculosDelMecanico(int codigoMecanico) throws DAOException, ServiciosException {
-        int contador = 0;
-        for (Mecanico m : this.servicioObtenerListaMecanicosPorId(codigoMecanico)) {
-            for (Vehiculo v : m.getVehiculos()) {
-                if (v.getMatricula() != null) {
-                    contador++;
-                }
-            }
-        }
-        return contador;
-    }
-
-    //obtener mecanicos sin vehiculo
-
-    public List<Mecanico> obtenerMecanicosSinVehiculo() throws DAOException, ServiciosException {
-        List<Mecanico> mecanicos = new ArrayList<>();
-        for (Mecanico m : this.servicioObtenerTodosMecanicos()) {
-            if (m.getVehiculos().isEmpty()) {
-                mecanicos.add(m);
-            }
-        }
-        if (mecanicos.isEmpty()) {
-            throw new ServiciosException("No hay mecánicos sin vehiculo");
-        }
-        return mecanicos;
-    }
-
     //asignar vehiculos a un mecanico
     public void servicioAsignarMecanicoAlVehiculo(int idMecanico, int idVehiculo) throws DAOException, ServiciosException {
 
@@ -193,9 +123,6 @@ public class ServicioMecanico {
     }
 
 
-
-
-
     //transacciones
 
     public void iniciarTransaccion() throws DAOException {
@@ -207,3 +134,81 @@ public class ServicioMecanico {
     }
 
 }
+
+/**
+ * **************************************************FIN DE CODIGO ***************************************************
+ * <p>
+ * CODIGO DE PRUEBAS ABAJO
+ */
+
+
+//obtener un listado de vehiculos al pasarle una id de mecanico
+
+    /*public List<Vehiculo> obtenerListaVehiculosAPartirIdMecanico(int idMecanico) throws DAOException, ServiciosException {
+        ServicioVehiculo.getServicio().servicioObtenerVehiculo(idMecanico);
+        List<Vehiculo> v = idao.obtenerVehiculosPorMecanico(idMecanico);
+            if (v.isEmpty()) {
+                throw new ServiciosException("No hay ningun vehiculo en la lista para ese mecánico");
+        }
+            return v;
+    }*/
+
+//obtener mecanicos sin vehiculo
+
+    /*public List<Mecanico> obtenerMecanicosSinVehiculo() throws DAOException, ServiciosException {
+        List<Mecanico> mecanicos = new ArrayList<>();
+        for (Mecanico m : this.servicioObtenerTodosMecanicos()) {
+            if (m.getVehiculos().isEmpty()) {
+                mecanicos.add(m);
+            }
+        }
+        if (mecanicos.isEmpty()) {
+            throw new ServiciosException("No hay mecánicos sin vehiculo");
+        }
+        return mecanicos;
+    }*/
+
+    /*public int obtenerNumeroDeVehiculosDelMecanico(int codigoMecanico) throws DAOException, ServiciosException {
+        int contador = 0;
+        for (Mecanico m : this.servicioObtenerListaMecanicosPorId(codigoMecanico)) {
+            for (Vehiculo v : m.getVehiculos()) {
+                if (v.getMatricula() != null) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }*/
+
+//modificar lista de vehiculos de un mecanico
+    /*public void servicioModificarListaVehiculosMecanico(int idMecanico, List<Vehiculo> nuevaLista) throws DAOException, ServiciosException {
+        Mecanico m = this.servicioObtenerMecanicoPorID(idMecanico);
+        m.setVehiculos((Set<Vehiculo>) nuevaLista);
+        idao.modificarMecanico(m);
+    }*/
+
+    /*public List<Mecanico> servicioObtenerListaMecanicosPorId(int id) throws DAOException, ServiciosException {
+        List<Mecanico> mecanicos = idao.obtenerTodosMecanicos(id);
+        if (mecanicos.isEmpty()) {
+            throw new ServiciosException("No hay ningun mecanico en la lista con ese id");
+        }
+        return mecanicos;
+    }*/
+
+    /*public void vehiculoExiste(Vehiculo vehiculo) throws DAOException, ServiciosException {
+        if (this.servicioObtenerTodosLosVehiculos().contains(vehiculo)) {
+            throw new ServiciosException("Este vehiculo ya existe");
+        }
+    }*/
+
+
+//eliminar un mecanico al pasarle un objeto mecanico
+
+    /*public void servicioEliminarMecanico(Mecanico m) throws DAOException, ServiciosException {
+        if (!(idao.obtenerTodosMecanicos().contains(m))) {
+            throw new ServiciosException("El mecánico no existe");
+        }
+        idao.iniciarTransaccion();
+        idao.eliminarMecanico(m.getIdMecanico());
+        idao.finalizarTransaccion();
+    }*/

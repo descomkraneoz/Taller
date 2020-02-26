@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class VehiculoJDBC implements IVehiculo {
@@ -213,15 +212,7 @@ public class VehiculoJDBC implements IVehiculo {
         }
     }
 
-    @Override
-    public List<Vehiculo> obtenerVehiculosPorFechaMatriculacion(Date fechaMatriculacion) throws DAOException {
-        return null;
-    }
 
-    @Override
-    public List<Vehiculo> obtenerTodosVehiculosElectricos(boolean esElectrico) throws DAOException {
-        return null;
-    }
 
     @Override
     public void finalizar() throws DAOException {

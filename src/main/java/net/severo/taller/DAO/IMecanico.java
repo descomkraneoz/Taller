@@ -25,4 +25,6 @@ public interface IMecanico {
     void iniciarTransaccion() throws DAOException;
 
     void finalizarTransaccion() throws DAOException;
+
+
 }

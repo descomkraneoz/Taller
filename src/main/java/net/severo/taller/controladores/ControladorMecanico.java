@@ -38,6 +38,9 @@ public class ControladorMecanico {
                 case 5:
                     this.ControladorAsignarMecanicoAlVehiculo();
                     break;
+                case 6:
+                    this.ControladorMostrarMecanicosMatriculas();
+                    break;
             }
         } while (true);
 
@@ -80,9 +83,11 @@ public class ControladorMecanico {
         }
     }
 
-    public void ControladorMostrarMecanicos(int codigo) {
+    public void ControladorMostrarMecanicosMatriculas() {
         try {
-            vm.mostrarListaMecanicos(ServicioMecanico.getServicioMecanico().servicioObtenerListaMecanicosPorId(codigo));
+            vm.mostrarNombreMecanicoYMatriculaVehiculo(ServicioMecanico.getServicioMecanico().servicioObtenerTodosMecanicos(), ServicioVehiculo.getServicio().servicioObtenerVehiculos());
+
+
         } catch (DAOException ex) {
             vm.mostrarError("Error al intentar obtener los datos: " + ex);
         } catch (ServiciosException ex) {
@@ -110,29 +115,8 @@ public class ControladorMecanico {
                         }
                         break;
                     case 2:
-                        /*List<Vehiculo> vehiculosAsignados = new ArrayList<>();
-                        Mecanico mc = new Mecanico();
-                        try {
-                            vehiculosAsignados = ServicioMecanico.getServicioMecanico().servicioObtenerTodosLosVehiculos();
-                            mc = ServicioMecanico.getServicioMecanico().servicioObtenerMecanicoPorID(codigo);
-
-                        } catch (DAOException ex) {
-                            vm.mostrarError("Error al intentar obtener los datos: " + ex.getMessage());
-                            return;
-                        } catch (ServiciosException ex) {
-                            vm.mostrarError("Error al intentar obtener los vehiculos:" + ex);
-                            return;
-                        }
-                        List<Vehiculo> vehiculos = vm.pedirListaVehiculos((ArrayList<Vehiculo>) vehiculosAsignados);
-                        mc.setVehiculos((Set<Vehiculo>) vehiculos);*/
+                        //NO IMPLEMENTADO
                         break;
-
-                    case 3:
-                        //Añadir vehiculos a la lista
-                        /*if (fecha != null) {
-                            ServicioVehiculo.getServicio().modificarFechaMatriculacion(codigoVehiculo, fecha);
-                        }
-                        break;*/
 
                 }
 
