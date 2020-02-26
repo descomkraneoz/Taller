@@ -119,18 +119,6 @@ public class MecanicoHibernate implements IMecanico {
 
 
     @Override
-    public List<Mecanico> obtenerTodosMecanicos(int idMecanico) throws DAOException {
-        return null;
-    }
-
-
-    @Override
-    public List<Vehiculo> obtenerVehiculosPorMecanico(int idMecanico) throws DAOException {
-        return null;
-    }
-
-
-    @Override
     public void finalizar() throws DAOException {
         SesionHibernate.getInstance().getSesion().close();
         SesionHibernate.getInstance().getSessionFactory().close();
